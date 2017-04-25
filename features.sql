@@ -412,6 +412,33 @@ end;
 	====================
 */
 
+CREATE OR REPLACE PROCEDURE DeleteDevice(d_macaddress IN device.MACAddress%TYPE)
+IS
+if_exist number;
+BEGIN
+	select count(*) into if_exist
+	from DEVICE
+	where MACAddress = d_macaddress;
+
+	if if_exist >= 1 then
+		DELETE from device where MACAddress = d_macaddress;
+		dbms_output.put_line('Deleted the device with MAC Address ' || d_macaddress);
+	else
+		dbms_output.put_line('Device with MAC address ' || d_macaddress || ' does not exist');
+	end if;
+END;
+
+/*
+-- Delete a device; it should be successful
+BEGIN
+	DeleteDevice('aa:aa:aa:aa:aa:aa');
+END;
+
+-- Delete the device with the same MAC Adddress again; we should see the error "Device with MAC address aa:aa:aa:aa:aa:aa should not exist"
+begin
+	DeleteDevice('aa:aa:aa:aa:aa:aa');
+end;
+*/
 
 /*
 	====================
