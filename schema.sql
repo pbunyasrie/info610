@@ -66,7 +66,8 @@ CREATE TABLE IPAM_User (
   UserName VARCHAR(25),
   Password VARCHAR(25),
   DeptID integer,
-  constraint User_PK Primary Key (UserID),
+  constraint UserID_PK Primary Key (UserID),
+  constraint UserName Unique (UserName),
   constraint User_FK1 Foreign Key (DeptID)
     REFERENCES Department(DeptID)
 );
