@@ -98,9 +98,7 @@ CREATE TABLE CHANGELOG_DEVICE (
   ChangeLogDeviceID integer not null,
   ChangeLog_Device_date timestamp,
   DeviceID integer,
-  constraint ChangeLog_Device_PK Primary Key (ChangeLogDeviceID),
-  constraint ChangeLog_Device_Fk1 Foreign Key (DeviceID)
-    references device(DeviceID)
+  constraint ChangeLog_Device_PK Primary Key (ChangeLogDeviceID)
 ); 
 
 
@@ -155,7 +153,7 @@ CREATE TABLE CHANGELOG_IPADDRESS (
   Log_DateLastSeen TimeStamp,
   Log_DeviceID integer,
   Log_SubnetID integer,
-  constraint ChangeLog_IPAddress_PK Primary Key (ChangeLog_IPAddressID),
+  constraint ChangeLog_IPAddress_PK Primary Key (ChangeLog_IPAddressID)
 );
 
 /* There can only be 4096 total VLANs; the VLAN IDs are NOT automatically sequenced  */

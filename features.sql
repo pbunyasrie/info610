@@ -173,9 +173,9 @@ begin
 		delete from CHANGELOG_IPADDRESS where rowid not in 
 		(select rowid 
 		  from (
-		  select rowid, ChangeLogIPAddressID 
+		  select rowid, ChangeLog_IPAddressID 
 		    from CHANGELOG_IPADDRESS
-		ORDER BY CHANGELOG_IPADDRESS.ChangeLogIPAddressID DESC
+		ORDER BY CHANGELOG_IPADDRESS.ChangeLog_IPAddressID DESC
 		  )
 		where rownum < 990);
 	end if;
@@ -184,7 +184,7 @@ end;
 
 /*
 	Testing:
-		INSERT INTO CHANGELOG_IPADDRESS (ChangeLogIPAddressID, ChangeLog_IPAddress_date, IPAddressID)
+		INSERT INTO CHANGELOG_IPADDRESS (ChangeLog_IPAddressID, ChangeLog_IPAddress_date, IPAddressID)
 		VALUES (CHANGELOG_IPADDRESS_sequence.nextval, CURRENT_TIMESTAMP, 1);
  */
 
