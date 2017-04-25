@@ -1,29 +1,54 @@
-
-SET LINESIZE 120
-SET PAGESIZE 80
-
-
+/* DROP TABLES */
 drop table DEPARTMENT CASCADE CONSTRAINTS;
 drop table Network_Administrator CASCADE CONSTRAINTS;
 drop table IPAM_User CASCADE CONSTRAINTS;
 drop table Request_Static CASCADE CONSTRAINTS;
 drop table DEVICE CASCADE CONSTRAINTS;
 drop table CHANGELOG_DEVICE CASCADE CONSTRAINTS;
-drop table Supernet CASCADE CONSTRAINTS;
-drop table Subnet CASCADE CONSTRAINTS;
-drop table Ipaddress CASCADE CONSTRAINTS;
+drop table SUPERNET CASCADE CONSTRAINTS;
+drop table SUBNET CASCADE CONSTRAINTS;
+drop table IPADDRESS CASCADE CONSTRAINTS;
 drop table CHANGELOG_IPADDRESS CASCADE CONSTRAINTS;
 drop table VLAN CASCADE CONSTRAINTS;
 drop table AUTODISCOVERY CASCADE CONSTRAINTS;
 drop table Change CASCADE CONSTRAINTS;
 
+/* DROP SEQUENCES */
+drop sequence DEPARTMENT_sequence;
+drop sequence Network_Administrator_sequence;
+drop sequence IPAM_User_sequence;
+drop sequence Request_Static_sequence;
+drop sequence DEVICE_sequence;
+drop sequence CHANGELOG_DEVICE_sequence;
+drop sequence SUPERNET_sequence;
+drop sequence SUBNET_sequence;
+drop sequence IPADDRESS_sequence;
+drop sequence CHANGELOG_IPADDRESS_sequence;
+drop sequence AUTODISCOVERY_sequence;
+drop sequence CHANGE_sequence;
 
+/* CREATE SEQUENCES */
+CREATE SEQUENCE DEPARTMENT_sequence START WITH 1 INCREMENT BY 1; 
+CREATE SEQUENCE Network_Administrator_sequence START WITH 1 INCREMENT BY 1; 
+CREATE SEQUENCE IPAM_User_sequence START WITH 1 INCREMENT BY 1;
+CREATE SEQUENCE Request_Static_sequence START WITH 1 INCREMENT BY 1; 
+CREATE SEQUENCE DEVICE_sequence START WITH 1 INCREMENT BY 1; 
+CREATE SEQUENCE CHANGELOG_DEVICE_sequence START WITH 1 INCREMENT BY 1; 
+CREATE SEQUENCE SUPERNET_sequence START WITH 1 INCREMENT BY 1;
+CREATE SEQUENCE SUBNET_sequence START WITH 1 INCREMENT BY 1;
+CREATE SEQUENCE IPADDRESS_sequence START WITH 1 INCREMENT BY 1;
+CREATE SEQUENCE CHANGELOG_IPADDRESS_sequence START WITH 1 INCREMENT BY 1; 
+CREATE SEQUENCE AUTODISCOVERY_sequence START WITH 1 INCREMENT BY 1; 
+CREATE SEQUENCE CHANGE_sequence START WITH 1 INCREMENT BY 1; 
+
+/* CREATE TABLES */
 CREATE TABLE DEPARTMENT(	
   DeptID integer not null,
   Name VARCHAR(25),
   Description VARCHAR(25),
   constraint Department_PK Primary Key (DeptID)
 );
+
 CREATE TABLE Network_Administrator(
   AdministratorID integer not null,
   Password VARCHAR(25),
@@ -35,6 +60,7 @@ CREATE TABLE Network_Administrator(
   constraint Administrator_FK1 Foreign Key (DeptID)
     REFERENCES Department(DeptID)
 );
+ 
 CREATE TABLE IPAM_User (
   UserID integer not null,
   UserName VARCHAR(25),
@@ -44,6 +70,7 @@ CREATE TABLE IPAM_User (
   constraint User_FK1 Foreign Key (DeptID)
     REFERENCES Department(DeptID)
 );
+
 CREATE TABLE Request_Static (
   RequestStaticID integer not null,
   Request_Static_Date date,
@@ -64,6 +91,7 @@ CREATE TABLE DEVICE (
   DeviceType varchar(20),
   constraint Device_PK Primary Key (DeviceID)
 );
+
 CREATE TABLE CHANGELOG_DEVICE (
   ChangeLogDeviceID integer not null,
   ChangeLog_Device_date timestamp,
@@ -72,6 +100,8 @@ CREATE TABLE CHANGELOG_DEVICE (
   constraint ChangeLog_Device_Fk1 Foreign Key (DeviceID)
     references device(DeviceID)
 ); 
+
+
 CREATE TABLE SUPERNET (
   SupernetID integer not null,
   Context varchar(20),
@@ -79,7 +109,8 @@ CREATE TABLE SUPERNET (
   Supernet_network_address varchar(20),
   Supernet_subnet_mask varchar(20),
   constraint Supernet_PK Primary Key (SupernetID)
-  );
+);
+
 CREATE TABLE SUBNET (
   SubnetID integer not null,
   Subnet varchar(20),
@@ -116,6 +147,7 @@ CREATE TABLE CHANGELOG_IPADDRESS (
   references IPAddress(ipaddressid)
 );
 
+/* There can only be 4096 total VLANs; the VLAN IDs are NOT automatically sequenced  */
 CREATE TABLE VLAN (
   VLANID integer not null,
   Name varchar(20),
@@ -126,6 +158,7 @@ CREATE TABLE VLAN (
   constraint Vlan_FK1 Foreign Key (SubnetID)
   references Subnet(SubnetID)
 );
+
 CREATE TABLE AUTODISCOVERY (
   AUTODISCOVERY_ID integer not null,
   DiscoveryDate TimeStamp,
@@ -133,9 +166,9 @@ CREATE TABLE AUTODISCOVERY (
   IPAddressID integer,
   DeviceID integer,
   constraint Autodiscover_PK Primary Key (AUTODISCOVERY_ID),
-  constraint Audodicovery_FK1 Foreign Key (IPAddressID)
+  constraint Autodiscovery_FK1 Foreign Key (IPAddressID)
   references IPAddress(ipaddressid),
-  constraint Audodicovery_FK2 Foreign Key (DeviceID)
+  constraint Autodiscovery_FK2 Foreign Key (DeviceID)
   references device(DeviceID)
 );
 

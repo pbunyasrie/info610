@@ -186,11 +186,8 @@ BEGIN
 END;
 
 begin
-	add_subnet_with_no_supernet (6, '10.66.0.0', '255.255.255.0', 'test subnet no FK', '10.66.0.254');
+	add_subnet_with_no_supernet (SUBNET_sequence.nextval, '10.66.0.0', '255.255.255.0', 'test subnet no FK', '10.66.0.254');
 end;
-
-select * from SUBNET where subnetid = 6;
-
 
 create or replace procedure add_subnet_with_supernet (
    n_SubnetID IN SUBNET.SubnetID%TYPE,
@@ -209,10 +206,8 @@ END;
 
 
 begin
-	add_subnet_with_supernet (7, '192.168.5.0', '255.255.255.0', 'test subnet W/ FK', 'yes', '192.168.5.254',2);
+	add_subnet_with_supernet (SUBNET_sequence.nextval, '192.168.5.0', '255.255.255.0', 'test subnet W/ FK', 'yes', '192.168.5.254',2);
 end;
-
-select * from SUBNET where subnetid = 7;
 
 /*
 	====================
