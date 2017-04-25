@@ -269,19 +269,9 @@ select count(*) into if_exist
 END;
 
 begin
-<<<<<<< Updated upstream
-	add_subnet_with_no_supernet (SUBNET_sequence.nextval, '10.66.0.0', '255.255.255.0', 'test subnet no FK', '10.66.0.254');
-end;
-
-=======
 	add_subnet_with_no_supernet (SUBNET_sequence.nextval, '10.66.0.0', '255.255.255.0', 'test subnet no FK', '10.66.0.254',CHANGE_sequence.nextval, CURRENT_TIMESTAMP, null, null, null, 2 , null, null);
 end;
 
-select * from SUBNET where subnetid = 6;
-select * from change where subnetid = 6;
-
-
->>>>>>> Stashed changes
 create or replace procedure add_subnet_with_supernet (
    n_SubnetID IN SUBNET.SubnetID%TYPE,
    n_Subnet IN SUBNET.Subnet%TYPE,
@@ -394,6 +384,7 @@ end;
 */
 
 create or replace procedure add_change (
+    c_changeid in change.changeid%TYPE,
 	c_change_date in change.change_date%TYPE,
 	c_deviceid in change.deviceid%TYPE,
 	c_vlanid in change.vlanid%TYPE,
@@ -405,6 +396,6 @@ create or replace procedure add_change (
 )
 is 
 BEGIN
-	INSERT INTO change (CHANGE_sequence.nextval, change_date, deviceid, vlanid, subnetid, supernetid, administratorid, ipaddressid, requeststaticID)
-	VALUES (c_changeid, c_change_date, c_deviceid , c_vlanid, c_subnetid, c_supernetid, c_administratorid, c_ipaddressid, c_requeststaticID);
+	INSERT INTO change (changeid, change_date, deviceid, vlanid, subnetid, supernetid, administratorid, ipaddressid, requeststaticID)
+	VALUES (CHANGE_sequence.nextval, c_change_date, c_deviceid , c_vlanid, c_subnetid, c_supernetid, c_administratorid, c_ipaddressid, c_requeststaticID);
 end;
