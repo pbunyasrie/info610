@@ -110,7 +110,9 @@ CREATE TABLE SUPERNET (
   Description varchar(40),
   Supernet_network_address varchar(20),
   Supernet_subnet_mask varchar(20),
-  constraint Supernet_PK Primary Key (SupernetID)
+  constraint Supernet_PK Primary Key (SupernetID),
+  CONSTRAINT chk_supernet_subnet_mask CHECK (Supernet_subnet_mask IN ('255.255.255.254','255.255.255.252','255.255.255.248','255.255.255.240','255.255.255.224','255.255.255.192','255.255.255.128','255.255.255.0','255.255.254.0','255.255.252.0','255.255.248.0','255.255.240.0'
+    ,'255.255.224.0','255.255.192.0','255.255.128.0','255.255.0.0','255.254.0.0','255.252.0.0','255.248.0.0','255.240.0.0','255.224.0.0','255.192.0.0','255.128.0.0','255.0.0.0'))
 );
 
 CREATE TABLE SUBNET (
@@ -123,7 +125,9 @@ CREATE TABLE SUBNET (
   SupernetID integer,
   constraint Subnet_PK Primary Key (SubnetID),
   constraint Subnet_FK2 Foreign Key (SupernetID)
-  references Supernet(SupernetID)
+  references Supernet(SupernetID),
+   CONSTRAINT chk_mask CHECK (Mask IN ('255.255.255.254','255.255.255.252','255.255.255.248','255.255.255.240','255.255.255.224','255.255.255.192','255.255.255.128','255.255.255.0','255.255.254.0','255.255.252.0','255.255.248.0','255.255.240.0','255.255.224.0','255.255.192.0','255.255.128.0','255.255.0.0','255.254.0.0','255.252.0.0','255.248.0.0','255.240.0.0','255.224.0.0','255.192.0.0','255.128.0.0','255.0.0.0'))
+
 );
 
 CREATE TABLE IPADDRESS (
