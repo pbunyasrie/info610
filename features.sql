@@ -6,8 +6,41 @@
 	- Implements INSERT
 
 	====================
+
 */
 
+create or replace PROCEDURE add_user(
+	username in IPAM_User.UserName%type, 
+	password in IPAM_User.Password%type, 
+	department in IPAM_User.DeptID%type
+) is
+	x IPAM_User%rowtype;
+BEGIN
+	x.UserId := IPAM_User_sequence.nextval;
+	x.UserName := username;
+	x.Password := password;
+	x.DeptID := department;
+	insert into IPAM_User values x;
+	dbms_output.put_line('Successfully added ' || username);
+EXCEPTION
+	when DUP_VAL_ON_INDEX then
+		dbms_output.put_line('That username is already taken. Please choose another.');
+	when others then
+		dbms_output.put_line('Unknown error. The procedure requires a username, a password, and a department ID.');
+END;
+
+
+/*
+-- Add a new user; it should be successful
+BEGIN
+	add_user('anewuser', 'Password1234!', 1);
+END;
+
+-- Add the same user again; we should see the error "That username is already taken. Please choose another."
+BEGIN
+	add_user('anewuser', 'Password1234!', 1);
+END;
+*/
 
 /*
 	====================
@@ -18,6 +51,36 @@
 
 	====================
 */
+
+create or replace PROCEDURE delete_user(d_username IN IPAM_User.UserName%type)
+is
+	if_exist number; -- used to check for the existence of the user before deletion
+BEGIN
+	select count(*) into if_exist
+	from IPAM_User
+	where UserName = d_username;
+
+	if if_exist >= 1 then
+		DELETE from IPAM_User where UserName = d_username;
+		dbms_output.put_line('Deleted the user named ' || d_username);
+	else
+		dbms_output.put_line('That username does not exist');
+	end if;
+END;
+
+
+/*
+-- Delete ppan; it should be successful
+begin
+	delete_user('ppan');
+end;
+
+-- Try to delete ppan again; we should see the error "That username does not exist"
+begin
+	delete_user('ppan');
+end;
+*/
+
 
 
 /*
