@@ -120,24 +120,73 @@ end;
 	====================
 	FEATURE #6
 	Automatic change log maintenance of Devices
-	- Implements TRIGGER/UPDATE: 
+	- Implements TRIGGER to SELECT and DELETE rows: 
 		Any time the ChangeLogDevice table has more than 1000 entries, we delete the 10 oldest entries
 
 	====================
 */
+create or replace trigger ChangeLogDevice_trim AFTER insert on CHANGELOG_DEVICE declare
+	ChangeLogDevice_count int;
+begin
+	-- Get current # of rows in CHANGELOG_DEVICE table
+	select count(*) into ChangeLogDevice_count from CHANGELOG_DEVICE; 
 
+	-- Run a delete statement to delete everything the 10 earliest rows, if we detect more than 1000 rows in the CHANGELOG_DEVICE table
+	if ChangeLogDevice_count > 1000 then
+		delete from CHANGELOG_DEVICE where rowid not in 
+		(select rowid 
+		  from (
+		  select rowid, changelogdeviceid 
+		    from CHANGELOG_DEVICE
+		ORDER BY CHANGELOG_DEVICE.CHANGELOGDEVICEID DESC
+		  )
+		where rownum < 990);
+	end if;
+	dbms_output.put_line(ChangeLogDevice_count || ' rows in CHANGELOG_DEVICE table');
+end;
+
+/*
+	Testing:
+		INSERT INTO CHANGELOG_DEVICE (ChangeLogDeviceID, ChangeLog_Device_date, DeviceID)
+		VALUES (CHANGELOG_DEVICE_sequence.nextval, CURRENT_TIMESTAMP, 1);
+ */
 
 
 /*
 	====================
 	FEATURE #7
 	Automatic change log maintenance of IP Addresses
-	- Implements TRIGGER/UPDATE:
+	- Implements TRIGGER to SELECT and DELETE rows:
 		Any time the ChangeLogIPAddress table has more than 1000 entries, we delete the 10 oldest entries
 
 	====================
 */
 
+create or replace trigger ChangeLogIPAddress_trim AFTER insert on CHANGELOG_IPADDRESS declare
+	ChangeLogIPAddress_count int;
+begin
+	-- Get current # of rows in CHANGELOG_IPADDRESS table
+	select count(*) into ChangeLogIPAddress_count from CHANGELOG_IPADDRESS; 
+
+	-- Run a delete statement to delete everything the 10 earliest rows, if we detect more than 1000 rows in the CHANGELOG_IPADDRESS table
+	if ChangeLogIPAddress_count > 1000 then
+		delete from CHANGELOG_IPADDRESS where rowid not in 
+		(select rowid 
+		  from (
+		  select rowid, ChangeLogIPAddressID 
+		    from CHANGELOG_IPADDRESS
+		ORDER BY CHANGELOG_IPADDRESS.ChangeLogIPAddressID DESC
+		  )
+		where rownum < 990);
+	end if;
+	dbms_output.put_line(ChangeLogIPAddress_count || ' rows in CHANGELOG_IPADDRESS table');
+end;
+
+/*
+	Testing:
+		INSERT INTO CHANGELOG_IPADDRESS (ChangeLogIPAddressID, ChangeLog_IPAddress_date, IPAddressID)
+		VALUES (CHANGELOG_IPADDRESS_sequence.nextval, CURRENT_TIMESTAMP, 1);
+ */
 
 /*
 	====================
