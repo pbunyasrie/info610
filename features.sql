@@ -218,7 +218,7 @@ BEGIN
 END;
 
 begin
-	add_supernet(6, 'testnet', 'test supernet', '192.168.96.0', '255.255.240.0',13, CURRENT_TIMESTAMP, null, null, null, 1, null, null);
+	add_supernet(SUPERNET_sequence.nextval, 'testnet', 'test supernet', '192.168.96.0', '255.255.240.0',CHANGE_sequence.nextval, CURRENT_TIMESTAMP, null, null, null, 1, null, null);
 end;
 
 -- Verify that the supernet was added, and that the change was recorded
@@ -237,21 +237,51 @@ select * from change where supernetid = 6;
 */
 
 create or replace procedure add_subnet_with_no_supernet (
-   n_SubnetID IN SUBNET.SubnetID%TYPE,
-   n_Subnet IN SUBNET.Subnet%TYPE,
-   n_Mask IN SUBNET.Mask%TYPE,
-   n_Description IN SUBNET.Description%TYPE,
-   n_RouterIPAddress in SUBNET.RouterIPAddress%TYPE)
+   	n_SubnetID IN SUBNET.SubnetID%TYPE,
+   	n_Subnet IN SUBNET.Subnet%TYPE,
+   	n_Mask IN SUBNET.Mask%TYPE,
+   	n_Description IN SUBNET.Description%TYPE,
+   	n_RouterIPAddress in SUBNET.RouterIPAddress%TYPE,
+   	n_changeid in change.changeid%TYPE,
+	n_change_date in change.change_date%TYPE,
+	n_deviceid in change.deviceid%TYPE,
+	n_vlanid in change.vlanid%TYPE,
+	n_supernetid in change.supernetid%TYPE,
+	n_administratorid in change.administratorid%TYPE,
+	n_ipaddressid in change.ipaddressid%TYPE,
+	n_requeststaticID in change.requeststaticID%TYPE
+	)
 is 
+if_exist number;
 BEGIN
-  INSERT INTO SUBNET (SubnetID, Subnet, Mask, Description, RouterIPAddress)
-  VALUES (n_SubnetID, n_Subnet, n_Mask , n_Description, n_RouterIPAddress);
+select count(*) into if_exist
+	from subnet
+	where subnet = n_Subnet 
+	and mask = n_Mask;
+	if if_exist >= 1 then
+		dbms_output.put_line('values aready exists in the subnet table ' || n_Subnet || ' ' || n_Mask);
+	else
+  		INSERT INTO SUBNET (SubnetID, Subnet, Mask, Description, RouterIPAddress)
+  		VALUES (n_SubnetID, n_Subnet, n_Mask , n_Description, n_RouterIPAddress);
+		add_change (n_changeid, n_change_date, n_deviceid , n_vlanid, n_subnetid, n_supernetid, n_administratorid, n_ipaddressid, n_requeststaticID);
+  end if;
+
 END;
 
 begin
+<<<<<<< Updated upstream
 	add_subnet_with_no_supernet (SUBNET_sequence.nextval, '10.66.0.0', '255.255.255.0', 'test subnet no FK', '10.66.0.254');
 end;
 
+=======
+	add_subnet_with_no_supernet (SUBNET_sequence.nextval, '10.66.0.0', '255.255.255.0', 'test subnet no FK', '10.66.0.254',CHANGE_sequence.nextval, CURRENT_TIMESTAMP, null, null, null, 2 , null, null);
+end;
+
+select * from SUBNET where subnetid = 6;
+select * from change where subnetid = 6;
+
+
+>>>>>>> Stashed changes
 create or replace procedure add_subnet_with_supernet (
    n_SubnetID IN SUBNET.SubnetID%TYPE,
    n_Subnet IN SUBNET.Subnet%TYPE,
@@ -260,16 +290,33 @@ create or replace procedure add_subnet_with_supernet (
    n_IPAddressesAvailable IN SUBNET.IPAddressesAvailable%TYPE,
    n_RouterIPAddress in SUBNET.RouterIPAddress%TYPE,
    n_supernetid IN SUBNET.supernetid%TYPE
-)
+   	n_changeid in change.changeid%TYPE,
+	n_change_date in change.change_date%TYPE,
+	n_deviceid in change.deviceid%TYPE,
+	n_vlanid in change.vlanid%TYPE,
+	n_supernetid in change.supernetid%TYPE,
+	n_administratorid in change.administratorid%TYPE,
+	n_ipaddressid in change.ipaddressid%TYPE,
+	n_requeststaticID in change.requeststaticID%TYPE
+	)
 is 
+if_exist number;
 BEGIN
+select count(*) into if_exist
+	from subnet
+	where subnet = n_Subnet 
+	and mask = n_Mask;
+	if if_exist >= 1 then
+		dbms_output.put_line('values aready exists in the subnet table ' || n_Subnet || ' ' || n_Mask);
+	else
   INSERT INTO SUBNET (SubnetID, Subnet, Mask, Description, IPAddressesAvailable, RouterIPAddress, supernetid)
   VALUES (n_SubnetID, n_Subnet, n_Mask , n_Description, n_IPAddressesAvailable, n_RouterIPAddress,n_supernetid);
+  add_change (n_changeid, n_change_date, n_deviceid , n_vlanid, n_subnetid, n_supernetid, n_administratorid, n_ipaddressid, n_requeststaticID);
 END;
 
 
 begin
-	add_subnet_with_supernet (SUBNET_sequence.nextval, '192.168.5.0', '255.255.255.0', 'test subnet W/ FK', 'yes', '192.168.5.254',2);
+	add_subnet_with_supernet (SUBNET_sequence.nextval, '192.168.5.0', '255.255.255.0', 'test subnet W/ FK', 'yes', '192.168.5.254',2,CHANGE_sequence.nextval, CURRENT_TIMESTAMP, null, null, null, 3 , null, null);
 end;
 
 /*
