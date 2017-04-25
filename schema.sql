@@ -57,6 +57,7 @@ CREATE TABLE Network_Administrator(
   LastActivity TimeStamp,
   DeptID Integer,
   constraint Administrator_PK Primary Key (AdministratorID),
+  constraint AdministratorName Unique (AdministratorName),
   constraint Administrator_FK1 Foreign Key (DeptID)
     REFERENCES Department(DeptID)
 );
