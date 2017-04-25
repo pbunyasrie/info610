@@ -209,7 +209,24 @@ end;
 
 	====================
 */
-
+CREATE OR REPLACE TRIGGER ipaddress_Changes
+    after insert or update or delete
+    ON ipaddress
+    FOR EACH ROW
+BEGIN
+-- When user inserts new row of data into IP Address
+  if inserting then
+    INSERT INTO changelog_ipaddress  (ChangeLog_IPAddressID, ChangeLog_IPAddress_date, ChangeLog_User, Status, Log_IPAddressID , Log_IPAddress, Log_DateFirstSeen, Log_DateLastSeen, Log_DeviceID, Log_SubnetID) values (CHANGELOG_IPADDRESS_sequence.nextval, current_timestamp, user, 'Inserted' ,:new.ipaddressid, :new.IPAddress, :new.DateFirstSeen, :new.DateLastSeen , :new.DeviceID, :new.SubnetID);
+  end if;
+  -- When user deletes new row of data into IP Address
+  if deleting  then
+    INSERT INTO changelog_ipaddress  (ChangeLog_IPAddressID, ChangeLog_IPAddress_date, ChangeLog_User, Status, Log_IPAddressID , Log_IPAddress, Log_DateFirstSeen, Log_DateLastSeen, Log_DeviceID, Log_SubnetID) values (CHANGELOG_IPADDRESS_sequence.nextval, current_timestamp, user, 'Deleted' ,:old.ipaddressid, :old.IPAddress, :old.DateFirstSeen, :old.DateLastSeen , :old.DeviceID, :old.SubnetID);
+  end if;
+  -- When user updates new row of data into IP Address
+  if updating then
+    INSERT INTO changelog_ipaddress  (ChangeLog_IPAddressID, ChangeLog_IPAddress_date, ChangeLog_User, Status, Log_IPAddressID , Log_IPAddress, Log_DateFirstSeen, Log_DateLastSeen, Log_DeviceID, Log_SubnetID) values (CHANGELOG_IPADDRESS_sequence.nextval, current_timestamp, user, 'Updated' ,:new.ipaddressid, :new.IPAddress, :new.DateFirstSeen, :new.DateLastSeen , :new.DeviceID, :new.SubnetID);
+  end if;
+END;
 
 /*
 	====================

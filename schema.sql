@@ -145,12 +145,17 @@ CREATE TABLE IPADDRESS (
 );
 
 CREATE TABLE CHANGELOG_IPADDRESS (
-  ChangeLogIPAddressID integer not null,
+  ChangeLog_IPAddressID integer not null,
   ChangeLog_IPAddress_date TimeStamp,
-  IPAddressID integer,
-  constraint ChangeLog_IPAddress_PK Primary Key (ChangeLogIPAddressID),
-  constraint ChangeLog_IPAddress_FK1 Foreign Key (IPAddressID)
-  references IPAddress(ipaddressid)
+  ChangeLog_User varchar(100), 
+  Status varchar(15),
+  Log_IPAddressID integer,
+  Log_IPAddress VARCHAR(25),
+  Log_DateFirstSeen TimeStamp,
+  Log_DateLastSeen TimeStamp,
+  Log_DeviceID integer,
+  Log_SubnetID integer,
+  constraint ChangeLog_IPAddress_PK Primary Key (ChangeLog_IPAddressID),
 );
 
 /* There can only be 4096 total VLANs; the VLAN IDs are NOT automatically sequenced  */
