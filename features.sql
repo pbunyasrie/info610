@@ -284,7 +284,6 @@ end;
 */
 
 create or replace procedure add_change (
-	c_changeid in change.changeid%TYPE,
 	c_change_date in change.change_date%TYPE,
 	c_deviceid in change.deviceid%TYPE,
 	c_vlanid in change.vlanid%TYPE,
@@ -296,6 +295,6 @@ create or replace procedure add_change (
 )
 is 
 BEGIN
-	INSERT INTO change (changeid, change_date, deviceid, vlanid, subnetid, supernetid, administratorid, ipaddressid, requeststaticID)
+	INSERT INTO change (CHANGE_sequence.nextval, change_date, deviceid, vlanid, subnetid, supernetid, administratorid, ipaddressid, requeststaticID)
 	VALUES (c_changeid, c_change_date, c_deviceid , c_vlanid, c_subnetid, c_supernetid, c_administratorid, c_ipaddressid, c_requeststaticID);
 end;
