@@ -162,6 +162,7 @@ CREATE TABLE VLAN (
   Name varchar(20),
   Description varchar(40),
   SubnetID integer,
+  constraint UniqueSubnetID Unique (SubnetID),
   constraint Vlan_PK Primary Key (VLANID),
   constraint Vlan_CK Check (vlanid > 0 and vlanid < 4095),
   constraint Vlan_FK1 Foreign Key (SubnetID)

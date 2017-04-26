@@ -385,6 +385,38 @@ end;
 	====================
 */
 
+create or replace procedure add_vlan (
+	n_vlanid IN VLAN.VLANID%TYPE,
+	n_name IN VLAN.Name%TYPE,
+	n_description IN VLAN.Description%TYPE,
+	n_subnetid IN VLAN.SubnetID%TYPE
+)
+is 
+if_exist number;
+BEGIN
+	select count(*) into if_exist
+	from VLAN
+	where vlanid = n_vlanid;
+
+	if if_exist >= 1 then
+		dbms_output.put_line('VLAN ' ||  n_vlanid || ' already exists. Please choose another');
+	else
+		INSERT INTO VLAN (vlanid, name, description, subnetid)
+		VALUES (n_vlanid, n_name, n_description , n_subnetid);
+		dbms_output.put_line('Created VLAN ' || n_vlanid || ' (' || n_name || ')');
+	end if;
+EXCEPTION
+	when DUP_VAL_ON_INDEX then
+		dbms_output.put_line('That subnet is already being used. Please choose another.');
+	when others then
+		dbms_output.put_line('Unknown error. The procedure requires a VLAN ID, a name, a description, and a SubnetID.');
+END;
+
+begin
+	add_vlan(1, 'Default VLAN', 'VLAN if no other VLAN is assigned', 1);
+end;
+
+
 /*
 	====================
 	FEATURE #14
