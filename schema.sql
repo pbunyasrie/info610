@@ -77,7 +77,7 @@ CREATE TABLE Request_Static (
   RequestStaticID integer not null,
   Request_Static_Date date,
   UserID integer,
-  Static_IP_Address varchar(20),
+  Static_IP_Address varchar(25),
   Static_MAC_Address varchar(17),
   constraint Request_Static_PK Primary Key (RequestStaticID),
   constraint Request_Static_FK1 Foreign Key (UserID)

@@ -93,6 +93,8 @@ end;
 	====================
 */
 
+
+
 /*
 	====================
 	FEATURE #4
@@ -103,22 +105,37 @@ end;
 	====================
 */
 
+create or replace PROCEDURE requestStaticIP(
+	n_user in Request_Static.UserID%type,
+	n_ip in Request_Static.Static_IP_Address%type,
+	n_mac in Request_Static.Static_MAC_Address%type
+) is
+	x Request_Static%rowtype;
+	n_username IPAM_User.username%type;
+BEGIN
+	x.RequestStaticID := Request_Static_sequence.nextval;
+	x.Request_Static_Date := CURRENT_TIMESTAMP;
+	x.UserID := n_user;
+	x.Static_IP_Address := n_ip;
+	x.Static_MAC_Address := n_mac;
+	insert into Request_Static values x;
+
+	-- Get the username of the userID given
+	select username into n_username from IPAM_user where UserID = n_user;
+	dbms_output.put_line(n_username || ' requested the IP address: ' || n_ip || ', with a MAC address of: ' || n_mac);
+EXCEPTION
+	when others then
+		dbms_output.put_line('Unknown error. The procedure requires a valid user ID, an IP address, and a MAC address.');
+END;
+
+begin
+	requestStaticIP(1, '172.16.1.1', '00:B0:D0:86:BB:F7');
+end;
+
 
 /*
 	====================
 	FEATURE #5
-	Approving a request for a static IP address (Network Administrator)
-
-	- Implements INSERT/UPDATE
-
-	====================
-*/
-
-
-
-/*
-	====================
-	FEATURE #6
 	Automatic change log maintenance of Devices
 	- Implements TRIGGER to SELECT and DELETE rows: 
 		Any time the ChangeLogDevice table has more than 1000 entries, we delete the 10 oldest entries
@@ -154,7 +171,7 @@ end;
 
 /*
 	====================
-	FEATURE #7
+	FEATURE #6
 	Automatic change log maintenance of IP Addresses
 	- Implements TRIGGER to SELECT and DELETE rows:
 		Any time the ChangeLogIPAddress table has more than 1000 entries, we delete the 10 oldest entries
@@ -190,7 +207,7 @@ end;
 
 /*
 	====================
-	FEATURE #8
+	FEATURE #7
 	Adding a device
 	- Implements TRIGGER/UPDATE: 
 		Any updates made to the Device table is logged into the ChangeLogDevice table which contains the date the change was made, the ID of the user who performed the action, and the device affected
@@ -202,7 +219,7 @@ end;
 
 /*
 	====================
-	FEATURE #9
+	FEATURE #8
 	Adding an IP address
 	- Implements TRIGGER/UPDATE: 
 		Any updates made to the IP Address table is logged into the ChangeLogIPAddress table which contains the date the change was made, the ID of the user who performed the action, and the IP address affected
@@ -230,7 +247,7 @@ END;
 
 /*
 	====================
-	FEATURE #10
+	FEATURE #9
 	User login
 	- Implements TRIGGER/UPDATE: 
 		Any time a user logs in, the user’s lastLogin timestamp will be set
@@ -242,7 +259,7 @@ END;
 
 /*
 	====================
-	FEATURE #11
+	FEATURE #10
 	Adding a supernet (Network Admin)
 
 	- Implements INSERT
@@ -294,7 +311,7 @@ select * from change where supernetid = 6;
 
 /*
 	====================
-	FEATURE #12
+	FEATURE #11
 	Adding a subnet (Network Admin)
 
 	- Implements INSERT
@@ -377,7 +394,7 @@ end;
 
 /*
 	====================
-	FEATURE #13
+	FEATURE #12
 	Adding a VLAN (Network Admin)
 
 	- Implements INSERT
@@ -419,7 +436,7 @@ end;
 
 /*
 	====================
-	FEATURE #14
+	FEATURE #13
 	Removing an IP address from the system
 
 	- Implements DELETE
@@ -453,7 +470,7 @@ end;
 
 /*
 	====================
-	FEATURE #15
+	FEATURE #14
 	Removing a device from the system based on MAC Address
 
 	- Implements DELETE
@@ -491,7 +508,7 @@ end;
 
 /*
 	====================
-	FEATURE #16
+	FEATURE #15
 	See who requested an IP address static assignment, what the static address is, and what admin created it
 
 	- Implements SELECT
