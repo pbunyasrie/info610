@@ -248,9 +248,7 @@ BEGIN
 	end if;
 END;
 
-begin
-	add_device(device_sequence.nextval, '66:66:66:66:66:66', 'testdevice1', 'test device 1', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP,'test pc', CHANGE_sequence.nextval, CURRENT_TIMESTAMP, null, null, null, 3, null, null);
-end;
+
 
 CREATE OR REPLACE TRIGGER device_change
     after insert or update or delete
@@ -270,6 +268,12 @@ BEGIN
     INSERT INTO CHANGELOG_DEVICE  (ChangeLogDeviceID, ChangeLog_Device_date, ChangeLog_User, Status, Log_DeviceID , Log_MACAddress, Log_Hostname, Log_Description, Log_TimeFirstSeen, Log_TimeLastSeen, Log_DeviceType) values (CHANGELOG_DEVICE_sequence.nextval, current_timestamp, user, 'Updated', :new.DeviceID , :new.MACAddress, :new.Hostname, :new.Description, :new.TimeFirstSeen, :new.TimeLastSeen, :new.DeviceType);
   end if;
 END;
+
+-- verifies that add device works (successful)
+begin
+	add_device(device_sequence.nextval, '66:66:66:66:66:66', 'testdevice1', 'test device 1', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP,'test pc', CHANGE_sequence.nextval, CURRENT_TIMESTAMP, null, null, null, 3, null, null);
+end;
+
 /*
 	====================
 	FEATURE #8
@@ -311,9 +315,7 @@ END;
 
 
 
-begin
-	add_ipaddress(ipaddress_sequence.nextval, '192.168.16.99', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 8, 5, CHANGE_sequence.nextval, CURRENT_TIMESTAMP, null, null, 3, null);
-end;
+
 
 CREATE OR REPLACE TRIGGER ipaddress_Changes
     after insert or update or delete
@@ -333,6 +335,11 @@ BEGIN
     INSERT INTO changelog_ipaddress  (ChangeLog_IPAddressID, ChangeLog_IPAddress_date, ChangeLog_User, Status, Log_IPAddressID , Log_IPAddress, Log_DateFirstSeen, Log_DateLastSeen, Log_DeviceID, Log_SubnetID) values (CHANGELOG_IPADDRESS_sequence.nextval, current_timestamp, user, 'Updated' ,:new.ipaddressid, :new.IPAddress, :new.DateFirstSeen, :new.DateLastSeen , :new.DeviceID, :new.SubnetID);
   end if;
 END;
+
+-- verifies that add ipaddress works (successful)
+begin
+	add_ipaddress(ipaddress_sequence.nextval, '192.168.16.99', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 8, 5, CHANGE_sequence.nextval, CURRENT_TIMESTAMP, null, null, 3, null);
+end;
 
 /*
 	====================
