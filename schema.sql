@@ -97,7 +97,15 @@ CREATE TABLE DEVICE (
 CREATE TABLE CHANGELOG_DEVICE (
   ChangeLogDeviceID integer not null,
   ChangeLog_Device_date timestamp,
-  DeviceID integer,
+  ChangeLog_User varchar(100), 
+  Status varchar(15),
+  Log_DeviceID integer,
+  Log_MACAddress varchar(17),
+  Log_Hostname varchar(20),
+  Log_Description varchar(40),
+  Log_TimeFirstSeen TimeStamp,
+  Log_TimeLastSeen  TimeStamp,
+  Log_DeviceType varchar(20),
   constraint ChangeLog_Device_PK Primary Key (ChangeLogDeviceID)
 ); 
 

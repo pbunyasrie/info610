@@ -215,8 +215,24 @@ end;
 	====================
 */
 
-
-
+CREATE OR REPLACE TRIGGER device_change
+    after insert or update or delete
+    ON device
+    FOR EACH ROW
+BEGIN
+-- When user inserts new row of data into the Device Table
+  if inserting then
+    INSERT INTO CHANGELOG_DEVICE  (ChangeLogDeviceID, ChangeLog_Device_date, ChangeLog_User, Status, Log_DeviceID , Log_MACAddress, Log_Hostname, Log_Description, Log_TimeFirstSeen, Log_TimeLastSeen, Log_DeviceType) values (CHANGELOG_DEVICE_sequence.nextval, current_timestamp, user, 'Inserted', :new.DeviceID , :new.MACAddress, :new.Hostname, :new.Description, :new.TimeFirstSeen, :new.TimeLastSeen, :new.DeviceType);
+  end if;
+  -- When user deletes new row of data into the Device Table
+  if deleting  then
+    INSERT INTO CHANGELOG_DEVICE  (ChangeLogDeviceID, ChangeLog_Device_date, ChangeLog_User, Status, Log_DeviceID , Log_MACAddress, Log_Hostname, Log_Description, Log_TimeFirstSeen, Log_TimeLastSeen, Log_DeviceType) values (CHANGELOG_DEVICE_sequence.nextval, current_timestamp, user, 'Deleted', :old.DeviceID , :old.MACAddress, :old.Hostname, :old.Description, :old.TimeFirstSeen, :old.TimeLastSeen, :old.DeviceType);
+  end if;
+  -- When user updates new row of data into the Device Table
+  if updating then
+    INSERT INTO CHANGELOG_DEVICE  (ChangeLogDeviceID, ChangeLog_Device_date, ChangeLog_User, Status, Log_DeviceID , Log_MACAddress, Log_Hostname, Log_Description, Log_TimeFirstSeen, Log_TimeLastSeen, Log_DeviceType) values (CHANGELOG_DEVICE_sequence.nextval, current_timestamp, user, 'Updated', :new.DeviceID , :new.MACAddress, :new.Hostname, :new.Description, :new.TimeFirstSeen, :new.TimeLastSeen, :new.DeviceType);
+  end if;
+END;
 /*
 	====================
 	FEATURE #8
