@@ -201,8 +201,8 @@ end;
 
 /*
 	Testing:
-		INSERT INTO CHANGELOG_IPADDRESS (ChangeLog_IPAddressID, ChangeLog_IPAddress_date, IPAddressID)
-		VALUES (CHANGELOG_IPADDRESS_sequence.nextval, CURRENT_TIMESTAMP, 1);
+		INSERT INTO CHANGELOG_IPADDRESS (ChangeLog_IPAddressID, ChangeLog_IPAddress_date, ChangeLog_User, Status, Log_IPAddressID, Log_IPAddress, Log_DateFirstSeen, Log_DateLastSeen, Log_DeviceID, Log_SubnetID)
+		VALUES (CHANGELOG_IPADDRESS_sequence.nextval, CURRENT_TIMESTAMP, 'ppan', 'Updated', 1, '192.168.1.1', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 1, 1);
  */
 
 /*

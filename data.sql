@@ -33,6 +33,12 @@ insert into Device (DeviceID, MACAddress, Hostname, Description, TimeFirstSeen, 
 insert into Device (DeviceID, MACAddress, Hostname, Description, TimeFirstSeen, TimeLastSeen, DeviceType) Values (DEVICE_sequence.nextval,'44:44:44:44:44:44', 'Engineer5', 'Engineer PC 5', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'PC');
 insert into Device (DeviceID, MACAddress, Hostname, Description, TimeFirstSeen, TimeLastSeen, DeviceType) Values (DEVICE_sequence.nextval,'55:55:55:55:55:55', 'Engineer6', 'Engineer PC 6', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'PC');
 
+INSERT INTO CHANGELOG_DEVICE (ChangeLogDeviceID, ChangeLog_Device_date, DeviceID) VALUES (CHANGELOG_DEVICE_sequence.nextval, CURRENT_TIMESTAMP, 1);
+INSERT INTO CHANGELOG_DEVICE (ChangeLogDeviceID, ChangeLog_Device_date, DeviceID) VALUES (CHANGELOG_DEVICE_sequence.nextval, CURRENT_TIMESTAMP, 2);
+INSERT INTO CHANGELOG_DEVICE (ChangeLogDeviceID, ChangeLog_Device_date, DeviceID) VALUES (CHANGELOG_DEVICE_sequence.nextval, CURRENT_TIMESTAMP, 3);
+INSERT INTO CHANGELOG_DEVICE (ChangeLogDeviceID, ChangeLog_Device_date, DeviceID) VALUES (CHANGELOG_DEVICE_sequence.nextval, CURRENT_TIMESTAMP, 4);
+INSERT INTO CHANGELOG_DEVICE (ChangeLogDeviceID, ChangeLog_Device_date, DeviceID) VALUES (CHANGELOG_DEVICE_sequence.nextval, CURRENT_TIMESTAMP, 5);
+
 insert into Supernet (supernetID, Context, Description, Supernet_network_address, Supernet_subnet_mask) Values (SUPERNET_sequence.nextval, 'SecureNET', 'Securenet Supernet', '172.16.0.0', '255.255.0.0');
 insert into Supernet (supernetID, Context, Description, Supernet_network_address, Supernet_subnet_mask) Values (SUPERNET_sequence.nextval, 'HrNET', 'Hr Network Supernet', '192.168.0.0', '255.255.240.0');
 insert into Supernet (supernetID, Context, Description, Supernet_network_address, Supernet_subnet_mask) Values (SUPERNET_sequence.nextval, 'EngineerNET', 'Engineer Network Supernet', '192.168.16.0', '255.255.240.0');
@@ -56,6 +62,12 @@ insert into IPAddress (IPAddressID, IPAddress, DateFirstSeen, DateLastSeen, Devi
 insert into IPAddress (IPAddressID, IPAddress, DateFirstSeen, DateLastSeen, DeviceID, SubnetID) Values (IPADDRESS_sequence.nextval,'192.168.16.1', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 8, 5);
 insert into IPAddress (IPAddressID, IPAddress, DateFirstSeen, DateLastSeen, DeviceID, SubnetID) Values (IPADDRESS_sequence.nextval,'192.168.16.1', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 9, 5);
 insert into IPAddress (IPAddressID, IPAddress, DateFirstSeen, DateLastSeen, DeviceID, SubnetID) Values (IPADDRESS_sequence.nextval,'192.168.16.1', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 10, 5);
+
+INSERT INTO CHANGELOG_IPADDRESS (ChangeLog_IPAddressID, ChangeLog_IPAddress_date, ChangeLog_User, Status, Log_IPAddressID, Log_IPAddress, Log_DateFirstSeen, Log_DateLastSeen, Log_DeviceID, Log_SubnetID) VALUES (CHANGELOG_IPADDRESS_sequence.nextval, CURRENT_TIMESTAMP, 'ppan', 'Updated', 1, '192.168.1.1', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 1, 1);
+INSERT INTO CHANGELOG_IPADDRESS (ChangeLog_IPAddressID, ChangeLog_IPAddress_date, ChangeLog_User, Status, Log_IPAddressID, Log_IPAddress, Log_DateFirstSeen, Log_DateLastSeen, Log_DeviceID, Log_SubnetID) VALUES (CHANGELOG_IPADDRESS_sequence.nextval, CURRENT_TIMESTAMP, 'ljames', 'Updated', 1, '192.168.1.1', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 1, 1);
+INSERT INTO CHANGELOG_IPADDRESS (ChangeLog_IPAddressID, ChangeLog_IPAddress_date, ChangeLog_User, Status, Log_IPAddressID, Log_IPAddress, Log_DateFirstSeen, Log_DateLastSeen, Log_DeviceID, Log_SubnetID) VALUES (CHANGELOG_IPADDRESS_sequence.nextval, CURRENT_TIMESTAMP, 'rallen', 'Updated', 1, '192.168.1.1', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 1, 1);
+INSERT INTO CHANGELOG_IPADDRESS (ChangeLog_IPAddressID, ChangeLog_IPAddress_date, ChangeLog_User, Status, Log_IPAddressID, Log_IPAddress, Log_DateFirstSeen, Log_DateLastSeen, Log_DeviceID, Log_SubnetID) VALUES (CHANGELOG_IPADDRESS_sequence.nextval, CURRENT_TIMESTAMP, 'kbryant', 'Updated', 1, '192.168.1.1', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 1, 1);
+
 
 insert into VLAN (VLANID, Name, Description, SubnetID) Values (1111, 'HR_1', 'VLAN used for a HR subnet', 1);
 insert into VLAN (VLANID, Name, Description, SubnetID) Values (1112, 'HR_2', 'VLAN used for a HR subnet', 2);
