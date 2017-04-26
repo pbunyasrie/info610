@@ -215,6 +215,43 @@ end;
 	====================
 */
 
+create or replace procedure add_device (
+	n_DeviceID IN device.DeviceID%TYPE,
+	n_MACAddress IN device.MACAddress%TYPE,
+	n_Hostname IN device.Hostname%TYPE,
+	n_Description IN device.Description%TYPE,
+	n_TimeFirstSeen IN device.TimeFirstSeen%TYPE,
+	n_TimeLastSeen IN device.TimeLastSeen%TYPE,
+	n_DeviceType IN device.DeviceType%TYPE,
+	n_changeid in change.changeid%TYPE,
+	n_change_date in change.change_date%TYPE,
+	n_vlanid in change.vlanid%TYPE,
+	n_subnetid in change.subnetid%TYPE,
+    n_supernetid in change.supernetid%TYPE,
+	n_administratorid in change.administratorid%TYPE,
+	n_ipaddressid in change.ipaddressid%TYPE,
+	n_requeststaticID in change.requeststaticID%TYPE
+)
+is 
+if_exist number;
+BEGIN
+	select count(*) into if_exist
+	from device
+	where MACAddress = n_MACAddress;
+	if if_exist >= 1 then
+		dbms_output.put_line('values aready exists in the device table ' || n_MACAddress) ;
+	else
+		INSERT INTO device (DeviceID, MACAddress, Hostname, Description, TimeFirstSeen, TimeLastSeen, DeviceType)
+		VALUES (n_DeviceID, n_MACAddress, n_Hostname , n_Description, n_TimeFirstSeen, n_TimeLastSeen, n_DeviceType);
+		dbms_output.put_line('Values added successfully to table Device ' || n_DeviceID || ' ' || n_MACAddress|| ' ' ||  n_Hostname|| ' ' || n_Description || ' ' || n_TimeFirstSeen || ' ' || n_TimeLastSeen || ' ' || n_DeviceType);
+		add_change (n_changeid, n_change_date, n_deviceid , n_vlanid, n_subnetid, n_supernetid, n_administratorid, n_ipaddressid, n_requeststaticID);
+	end if;
+END;
+
+begin
+	add_device(device_sequence.nextval, '66:66:66:66:66:66', 'testdevice1', 'test device 1', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP,'test pc', CHANGE_sequence.nextval, CURRENT_TIMESTAMP, null, null, null, 3, null, null);
+end;
+
 CREATE OR REPLACE TRIGGER device_change
     after insert or update or delete
     ON device
@@ -242,6 +279,42 @@ END;
 
 	====================
 */
+create or replace procedure add_ipaddress (
+	n_IPAddressID IN ipaddress.IPAddressID%TYPE,
+	n_IPAddress IN ipaddress.IPAddress%TYPE,
+	n_DateFirstSeen IN ipaddress.DateFirstSeen%TYPE,
+	n_DateLastSeen IN ipaddress.DateLastSeen%TYPE,
+	n_DeviceID IN ipaddress.DeviceID%TYPE,
+	n_SubnetID IN ipaddress.SubnetID%TYPE,
+	n_changeid in change.changeid%TYPE,
+	n_change_date in change.change_date%TYPE,
+	n_vlanid in change.vlanid%TYPE,
+    n_supernetid in change.supernetid%TYPE,
+	n_administratorid in change.administratorid%TYPE,
+	n_requeststaticID in change.requeststaticID%TYPE
+)
+is 
+if_exist number;
+BEGIN
+	select count(*) into if_exist
+	from ipaddress
+	where IPAddress = n_IPAddress;
+	if if_exist >= 1 then
+		dbms_output.put_line('values already exists in the device table ' || n_IPAddress) ;
+	else
+		INSERT INTO ipaddress (IPAddressID, IPAddress, DateFirstSeen, DateLastSeen, DeviceID, SubnetID)
+		VALUES (n_IPAddressID, n_IPAddress, n_DateFirstSeen , n_DateLastSeen, n_DeviceID, n_SubnetID);
+		dbms_output.put_line('Values added successfully to table Device ' || n_IPAddressID || ' ' || n_IPAddress|| ' ' ||  n_DateFirstSeen|| ' ' || n_DateLastSeen || ' ' || n_DeviceID || ' ' || n_SubnetID );
+		add_change (n_changeid, n_change_date, n_deviceid , n_vlanid, n_subnetid, n_supernetid, n_administratorid, n_ipaddressid, n_requeststaticID);
+	end if;
+END;
+
+
+
+begin
+	add_ipaddress(ipaddress_sequence.nextval, '192.168.16.99', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 8, 5, CHANGE_sequence.nextval, CURRENT_TIMESTAMP, null, null, 3, null);
+end;
+
 CREATE OR REPLACE TRIGGER ipaddress_Changes
     after insert or update or delete
     ON ipaddress
