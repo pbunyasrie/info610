@@ -81,7 +81,8 @@ CREATE TABLE Request_Static (
   Static_MAC_Address varchar(17),
   constraint Request_Static_PK Primary Key (RequestStaticID),
   constraint Request_Static_FK1 Foreign Key (UserID)
-  References IPAM_User(UserID));
+  References IPAM_User(UserID) ON DELETE SET NULL
+  );
 
 CREATE TABLE DEVICE (
   DeviceID integer not null,
