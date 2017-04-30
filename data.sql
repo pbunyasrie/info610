@@ -83,8 +83,7 @@ insert into AUTODISCOVERY (AUTODISCOVERY_ID, DiscoveryDate, DiscoveryDescription
 insert into AUTODISCOVERY (AUTODISCOVERY_ID, DiscoveryDate, DiscoveryDescription, ipaddressid, DeviceID) values (AUTODISCOVERY_sequence.nextval, CURRENT_TIMESTAMP, 'Discovery of new Device and Ipaddress', 10, 10);
 
 insert into change (changeID, Change_Date, DeviceID, VlanID, SubnetID, supernetID, AdministratorID, IPAddressID, RequestStaticID) values (CHANGE_sequence.nextval, CURRENT_TIMESTAMP, 1,null,null,null,1,null,null);
-insert into change (changeID, Change_Date, DeviceID, VlanID, SubnetID, supernetID, AdministratorID, IPAddressID, RequestStaticID) values (CHANGE_sequence.nextval, CURRENT_TIMESTAMP, null,1111,1,1,2,1,null);
-insert into change (changeID, Change_Date, DeviceID, VlanID, SubnetID, supernetID, AdministratorID, IPAddressID, RequestStaticID) values (CHANGE_sequence.nextval, CURRENT_TIMESTAMP, null,null,null,null,3,null,1);
+insert into change (changeID, Change_Date, DeviceID, VlanID, SubnetID, supernetID, AdministratorID, IPAddressID, RequestStaticID) values (CHANGE_sequence.nextval, CURRENT_TIMESTAMP, null,1111,1,1,2,1,1);
 insert into change (changeID, Change_Date, DeviceID, VlanID, SubnetID, supernetID, AdministratorID, IPAddressID, RequestStaticID) values (CHANGE_sequence.nextval, CURRENT_TIMESTAMP, null,null,null,null,4,null,2);
 insert into change (changeID, Change_Date, DeviceID, VlanID, SubnetID, supernetID, AdministratorID, IPAddressID, RequestStaticID) values (CHANGE_sequence.nextval, CURRENT_TIMESTAMP, null,null,null,null,5,null,3);
 insert into change (changeID, Change_Date, DeviceID, VlanID, SubnetID, supernetID, AdministratorID, IPAddressID, RequestStaticID) values (CHANGE_sequence.nextval, CURRENT_TIMESTAMP, null,null,null,null,1,null,4);

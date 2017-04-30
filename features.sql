@@ -612,7 +612,46 @@ end;
 	====================
 */
 
+create or replace procedure find_static_ip_requestor(
+	r_userid in request_static.userID%TYPE
+	)
+    is
+cursor c1 is select ipam_user.username, Network_Administrator.AdministratorName, ipaddress.ipaddress, device.macaddress
+from request_static, ipaddress, device, Network_Administrator, ipam_user, change
+where request_static.userID = IPAM_user.userID
+and change.requeststaticID = request_static.requeststaticid
+and change.administratorid = Network_Administrator.administratorid
+and change.ipaddressid = ipaddress.ipaddressid
+and ipaddress.deviceid = device.deviceid
+and request_static.UserID = r_userid;
+n_username ipam_user.username%type;
+n_administratorname Network_Administrator.AdministratorName%type;
+n_ipaddress ipaddress.ipaddress%type;
+n_macaddress device.macaddress%type;
+if_exist number;
+BEGIN
+select count(*) into if_exist
+	from request_static
+	where request_static.userID = r_userid;
+	if if_exist = 0 then
+		dbms_output.put_line('no such userid exists' || r_userid);
+	else
 
+  open c1;
+  	loop 
+  		fetch c1 into n_username, n_administratorname, n_ipaddress, n_macaddress;
+  		exit when c1%notfound;
+  		dbms_output.put_line('Username Requesting IP Address is: ' || n_username || ' Administrator Who Added Static entry is: ' || n_administratorname || ' Ip address added is: ' || n_ipaddress || ' Mac Address of Device is: ' || n_macaddress);
+  	end loop;
+  close c1;
+  end if;
+end;
+
+
+
+begin 
+find_static_ip_requestor(1);
+end;
 
 
 /*
