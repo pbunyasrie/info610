@@ -45,11 +45,11 @@ insert into Supernet (supernetID, Context, Description, Supernet_network_address
 insert into Supernet (supernetID, Context, Description, Supernet_network_address, Supernet_subnet_mask) Values (SUPERNET_sequence.nextval, 'SalesNET', 'Sales Network Supernet', '192.168.32.0', '255.255.240.0');
 insert into Supernet (supernetID, Context, Description, Supernet_network_address, Supernet_subnet_mask) Values (SUPERNET_sequence.nextval, 'ITNET', 'IT Network Supernet', '192.168.64.0', '255.255.240.0');
 
-insert into Subnet (SubnetID, Subnet, Mask, Description, IPAddressesAvailable, RouterIPAddress, SupernetID) Values (SUBNET_sequence.nextval, '192.168.1.0', '255.255.255.0', 'HR Subnet 1','254', '192.168.1.254',2);
-insert into Subnet (SubnetID, Subnet, Mask, Description, IPAddressesAvailable, RouterIPAddress, SupernetID) Values (SUBNET_sequence.nextval, '192.168.2.0', '255.255.255.0', 'HR Subnet 2','254', '192.168.1.254',2);
-insert into Subnet (SubnetID, Subnet, Mask, Description, IPAddressesAvailable, RouterIPAddress, SupernetID) Values (SUBNET_sequence.nextval, '192.168.3.0', '255.255.255.0', 'HR Subnet 3','254', '192.168.1.254',2);
-insert into Subnet (SubnetID, Subnet, Mask, Description, IPAddressesAvailable, RouterIPAddress, SupernetID) Values (SUBNET_sequence.nextval, '192.168.4.0', '255.255.255.0', 'HR Subnet 4','254', '192.168.1.254',2);
-insert into Subnet (SubnetID, Subnet, Mask, Description, IPAddressesAvailable, RouterIPAddress, SupernetID) Values (SUBNET_sequence.nextval, '192.168.16.0', '255.255.255.0', 'Engineer Subnet 1' ,'254', '192.168.1.254',3);
+insert into Subnet (SubnetID, Subnet, Mask, Description, RouterIPAddress, SupernetID) Values (SUBNET_sequence.nextval, '192.168.1.0', '255.255.255.0', 'HR Subnet 1', '192.168.1.254',2);
+insert into Subnet (SubnetID, Subnet, Mask, Description, RouterIPAddress, SupernetID) Values (SUBNET_sequence.nextval, '192.168.2.0', '255.255.255.0', 'HR Subnet 2', '192.168.1.254',2);
+insert into Subnet (SubnetID, Subnet, Mask, Description, RouterIPAddress, SupernetID) Values (SUBNET_sequence.nextval, '192.168.3.0', '255.255.255.0', 'HR Subnet 3', '192.168.1.254',2);
+insert into Subnet (SubnetID, Subnet, Mask, Description, RouterIPAddress, SupernetID) Values (SUBNET_sequence.nextval, '192.168.4.0', '255.255.255.0', 'HR Subnet 4', '192.168.1.254',2);
+insert into Subnet (SubnetID, Subnet, Mask, Description, RouterIPAddress, SupernetID) Values (SUBNET_sequence.nextval, '192.168.16.0', '255.255.255.0', 'Engineer Subnet 1' , '192.168.1.254',3);
 
 
 insert into IPAddress (IPAddressID, IPAddress, DateFirstSeen, DateLastSeen, DeviceID, SubnetID) Values (IPADDRESS_sequence.nextval,'192.168.1.1', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 1, 1); 
@@ -57,11 +57,11 @@ insert into IPAddress (IPAddressID, IPAddress, DateFirstSeen, DateLastSeen, Devi
 insert into IPAddress (IPAddressID, IPAddress, DateFirstSeen, DateLastSeen, DeviceID, SubnetID) Values (IPADDRESS_sequence.nextval,'192.168.1.3', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 3, 1); 
 insert into IPAddress (IPAddressID, IPAddress, DateFirstSeen, DateLastSeen, DeviceID, SubnetID) Values (IPADDRESS_sequence.nextval,'192.168.1.4', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 4, 1); 
 insert into IPAddress (IPAddressID, IPAddress, DateFirstSeen, DateLastSeen, DeviceID, SubnetID) Values (IPADDRESS_sequence.nextval,'192.168.16.1', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 5, 5);
-insert into IPAddress (IPAddressID, IPAddress, DateFirstSeen, DateLastSeen, DeviceID, SubnetID) Values (IPADDRESS_sequence.nextval,'192.168.16.1', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 6, 5);
-insert into IPAddress (IPAddressID, IPAddress, DateFirstSeen, DateLastSeen, DeviceID, SubnetID) Values (IPADDRESS_sequence.nextval,'192.168.16.1', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 7, 5);
-insert into IPAddress (IPAddressID, IPAddress, DateFirstSeen, DateLastSeen, DeviceID, SubnetID) Values (IPADDRESS_sequence.nextval,'192.168.16.1', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 8, 5);
-insert into IPAddress (IPAddressID, IPAddress, DateFirstSeen, DateLastSeen, DeviceID, SubnetID) Values (IPADDRESS_sequence.nextval,'192.168.16.1', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 9, 5);
-insert into IPAddress (IPAddressID, IPAddress, DateFirstSeen, DateLastSeen, DeviceID, SubnetID) Values (IPADDRESS_sequence.nextval,'192.168.16.1', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 10, 5);
+insert into IPAddress (IPAddressID, IPAddress, DateFirstSeen, DateLastSeen, DeviceID, SubnetID) Values (IPADDRESS_sequence.nextval,'192.168.16.2', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 6, 5);
+insert into IPAddress (IPAddressID, IPAddress, DateFirstSeen, DateLastSeen, DeviceID, SubnetID) Values (IPADDRESS_sequence.nextval,'192.168.16.3', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 7, 5);
+insert into IPAddress (IPAddressID, IPAddress, DateFirstSeen, DateLastSeen, DeviceID, SubnetID) Values (IPADDRESS_sequence.nextval,'192.168.16.4', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 8, 5);
+insert into IPAddress (IPAddressID, IPAddress, DateFirstSeen, DateLastSeen, DeviceID, SubnetID) Values (IPADDRESS_sequence.nextval,'192.168.16.5', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 9, 5);
+insert into IPAddress (IPAddressID, IPAddress, DateFirstSeen, DateLastSeen, DeviceID, SubnetID) Values (IPADDRESS_sequence.nextval,'192.168.16.6', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 10, 5);
 
 INSERT INTO CHANGELOG_IPADDRESS (ChangeLog_IPAddressID, ChangeLog_IPAddress_date, ChangeLog_User, Status, Log_IPAddressID, Log_IPAddress, Log_DateFirstSeen, Log_DateLastSeen, Log_DeviceID, Log_SubnetID) VALUES (CHANGELOG_IPADDRESS_sequence.nextval, CURRENT_TIMESTAMP, 'ppan', 'Updated', 1, '192.168.1.1', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 1, 1);
 INSERT INTO CHANGELOG_IPADDRESS (ChangeLog_IPAddressID, ChangeLog_IPAddress_date, ChangeLog_User, Status, Log_IPAddressID, Log_IPAddress, Log_DateFirstSeen, Log_DateLastSeen, Log_DeviceID, Log_SubnetID) VALUES (CHANGELOG_IPADDRESS_sequence.nextval, CURRENT_TIMESTAMP, 'ljames', 'Updated', 1, '192.168.1.1', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 1, 1);
@@ -90,6 +90,7 @@ insert into change (changeID, Change_Date, DeviceID, VlanID, SubnetID, supernetI
 insert into change (changeID, Change_Date, DeviceID, VlanID, SubnetID, supernetID, AdministratorID, IPAddressID, RequestStaticID) values (CHANGE_sequence.nextval, CURRENT_TIMESTAMP, null,null,null,null,2,null,5);
 insert into change (changeID, Change_Date, DeviceID, VlanID, SubnetID, supernetID, AdministratorID, IPAddressID, RequestStaticID) values (CHANGE_sequence.nextval, CURRENT_TIMESTAMP, 2 ,1112,2,2,3,2,null);
 insert into change (changeID, Change_Date, DeviceID, VlanID, SubnetID, supernetID, AdministratorID, IPAddressID, RequestStaticID) values (CHANGE_sequence.nextval, CURRENT_TIMESTAMP, null,null,3,3,4,null,null);
-insert into change (changeID, Change_Date, DeviceID, VlanID, SubnetID, supernetID, AdministratorID, IPAddressID, RequestStaticID) values (CHANGE_sequence.nextval, CURRENT_TIMESTAMP, 3,1113,null,null,5,3,null);
-insert into change (changeID, Change_Date, DeviceID, VlanID, SubnetID, supernetID, AdministratorID, IPAddressID, RequestStaticID) values (CHANGE_sequence.nextval, CURRENT_TIMESTAMP, 4,1114,4,4,1,4,null);
-insert into change (changeID, Change_Date, DeviceID, VlanID, SubnetID, supernetID, AdministratorID, IPAddressID, RequestStaticID) values (CHANGE_sequence.nextval, CURRENT_TIMESTAMP, 5,1115,5,5,2,5,null);
+insert into change (changeID, Change_Date, DeviceID, VlanID, SubnetID, supernetID, AdministratorID, IPAddressID, RequestStaticID) values (CHANGE_sequence.nextval, (TO_TIMESTAMP('05-MAR-17 10.31.19', 'DD-MON-YY HH.MI.SS')), 3,1113,null,null,5,3,null);
+insert into change (changeID, Change_Date, DeviceID, VlanID, SubnetID, supernetID, AdministratorID, IPAddressID, RequestStaticID) values (CHANGE_sequence.nextval, (TO_TIMESTAMP('03-MAR-17 10.31.19', 'DD-MON-YY HH.MI.SS')), 4,1114,4,4,1,4,null);
+insert into change (changeID, Change_Date, DeviceID, VlanID, SubnetID, supernetID, AdministratorID, IPAddressID, RequestStaticID) values (CHANGE_sequence.nextval, (TO_TIMESTAMP('03-MAR-17 10.31.19', 'DD-MON-YY HH.MI.SS')), 5,1115,5,5,2,5,null);
+
