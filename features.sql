@@ -381,21 +381,10 @@ begin
 	add_ipaddress(ipaddress_sequence.nextval, '192.168.16.99', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 8, 5, CHANGE_sequence.nextval, CURRENT_TIMESTAMP, null, null, 3, null);
 end;
 
+
 /*
 	====================
 	FEATURE #9
-	User login
-	- Implements TRIGGER/UPDATE: 
-		Any time a user logs in, the user’s lastLogin timestamp will be set
-
-	====================
-*/
-
-
-
-/*
-	====================
-	FEATURE #10
 	Adding a supernet (Network Admin)
 
 	- Implements INSERT
@@ -447,7 +436,7 @@ select * from change where supernetid = 6;
 
 /*
 	====================
-	FEATURE #11
+	FEATURE #10
 	Adding a subnet (Network Admin)
 
 	- Implements INSERT
@@ -530,7 +519,7 @@ end;
 
 /*
 	====================
-	FEATURE #12
+	FEATURE #11
 	Adding a VLAN (Network Admin)
 
 	- Implements INSERT
@@ -572,7 +561,7 @@ end;
 
 /*
 	====================
-	FEATURE #13
+	FEATURE #12
 	Removing an IP address from the system
 
 	- Implements DELETE
@@ -606,7 +595,7 @@ end;
 
 /*
 	====================
-	FEATURE #14
+	FEATURE #13
 	Removing a device from the system based on MAC Address
 
 	- Implements DELETE
@@ -644,7 +633,7 @@ end;
 
 /*
 	====================
-	FEATURE #15
+	FEATURE #14
 	See who requested an IP address static assignment, what the static address is, and what admin created it
 
 	- Implements SELECT
@@ -694,9 +683,14 @@ find_static_ip_requestor(1);
 end;
 
 
+
 /*
 	====================
-	Supporting Features/Functions
+	FEATURE #15
+	Adds an entry to the change table
+
+	- Implements INSERT
+
 	====================
 */
 
