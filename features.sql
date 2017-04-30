@@ -86,13 +86,53 @@ end;
 /*
 	====================
 	FEATURE #3
-	Showing recent changes within the past n days
+	Checked to see if Ipaddress was autodisovered or added by an administrator
 
 	- Implements SELECT
 
 	====================
 */
 
+
+create or replace procedure check_autodiscovery_ipaddress(
+	n_IPAddress in ipaddress.IPAddress%type
+	)
+is
+	if_exist number;
+	if_exist_in_autodiscovery number;
+BEGIN
+	select count(*) into if_exist
+	from ipaddress
+	where IPAddress = n_IPAddress;
+	if if_exist >= 1 then
+		select count(*) into if_exist_in_autodiscovery
+		from ipaddress, AUTODISCOVERY
+		where ipaddress.ipaddressid = AUTODISCOVERY.ipaddressid
+		and ipaddress.ipaddress = n_IPAddress;
+		if if_exist_in_autodiscovery = 1 then
+			dbms_output.put_line('The ipaddress :' || n_IPAddress || ' was autodiscovered') ;
+		else
+			dbms_output.put_line('The ipaddress :' || n_IPAddress || ' was added by an administrator') ;
+		end if;
+	else
+		dbms_output.put_line('Ipaddress does not exist ' || n_IPAddress) ;
+	end if;
+end;
+
+--Example: does not exist
+BEGIN
+check_autodiscovery_ipaddress('192.168.16.66');
+END;
+
+--Example: added by administrator
+BEGIN
+check_autodiscovery_ipaddress('192.168.1.4');
+END;
+
+--Example: autodiscovered Ip address
+BEGIN
+check_autodiscovery_ipaddress('192.168.16.2');
+END;
 
 
 /*
@@ -646,7 +686,7 @@ select count(*) into if_exist
   close c1;
   end if;
 end;
-
+	
 
 
 begin 
