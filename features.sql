@@ -700,6 +700,7 @@ end;
 	====================
 */
 
+-- Used by other features such as add_device, add_ipaddress, add_supernet, etc.
 create or replace procedure add_change (
     c_changeid in change.changeid%TYPE,
 	c_change_date in change.change_date%TYPE,
