@@ -561,7 +561,7 @@ EXCEPTION
 END;
 
 begin
-	add_vlan(1, 'Default VLAN', 'VLAN if no other VLAN is assigned', 1);
+	add_vlan(10, 'A new VLAN', 'VLAN if no other VLAN is assigned', 6);
 end;
 
 
