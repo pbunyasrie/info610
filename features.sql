@@ -169,7 +169,7 @@ EXCEPTION
 END;
 
 begin
-	requestStaticIP(1, '172.16.1.1', '00:B0:D0:86:BB:F7');
+	requestStaticIP(2, '172.16.1.1', '00:B0:D0:86:BB:F7');
 end;
 
 
