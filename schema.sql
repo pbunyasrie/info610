@@ -126,7 +126,6 @@ CREATE TABLE SUBNET (
   Subnet varchar(20),
   Mask varchar(20),
   Description varchar(40),
-  IPAddressesAvailable varchar(3),
   RouterIPAddress varchar(20),
   SupernetID integer,
   constraint Subnet_PK Primary Key (SubnetID),
@@ -143,6 +142,7 @@ CREATE TABLE IPADDRESS (
   DateLastSeen TimeStamp,
   DeviceID integer,
   SubnetID integer,
+  constraint UniqueIpaddress Unique (ipaddress),
   constraint IPAddress_PK Primary Key (IPAddressID),
   constraint IPAddress_FK2 Foreign Key (DeviceID)
     references device(DeviceID),
