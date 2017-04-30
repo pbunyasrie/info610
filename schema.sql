@@ -213,7 +213,7 @@ CREATE TABLE Change (
   constraint Change_Fk5 Foreign Key (AdministratorID)
   references Network_Administrator(AdministratorID),
   constraint Change_Fk6 Foreign Key (IPAddressID)
-  references Ipaddress(IPAddressID),
+  references Ipaddress(IPAddressID) ON DELETE SET NULL,
   constraint Change_Fk7 Foreign Key (RequestStaticID)
   references Request_Static(RequestStaticID)
 );
