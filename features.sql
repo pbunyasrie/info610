@@ -204,7 +204,7 @@ end;
 
 /*
 	Testing:
-		INSERT INTO CHANGELOG_DEVICE (ChangeLogDeviceID, ChangeLog_Device_date, DeviceID)
+		INSERT INTO CHANGELOG_DEVICE (ChangeLogDeviceID, ChangeLog_Device_date, Log_DeviceID)
 		VALUES (CHANGELOG_DEVICE_sequence.nextval, CURRENT_TIMESTAMP, 1);
  */
 
