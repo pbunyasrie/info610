@@ -481,18 +481,17 @@ begin
 end;
 
 create or replace procedure add_subnet_with_supernet (
-   n_SubnetID IN SUBNET.SubnetID%TYPE,
-   n_Subnet IN SUBNET.Subnet%TYPE,
-   n_Mask IN SUBNET.Mask%TYPE,
-   n_Description IN SUBNET.Description%TYPE,
-   n_IPAddressesAvailable IN SUBNET.IPAddressesAvailable%TYPE,
-   n_RouterIPAddress in SUBNET.RouterIPAddress%TYPE,
-   n_supernetid IN SUBNET.supernetid%TYPE
-   	n_changeid in change.changeid%TYPE,
+    n_SubnetID IN SUBNET.SubnetID%TYPE,
+    n_Subnet IN SUBNET.Subnet%TYPE,
+    n_Mask IN SUBNET.Mask%TYPE,
+    n_Description IN SUBNET.Description%TYPE,
+    n_RouterIPAddress in SUBNET.RouterIPAddress%TYPE,
+    n_supernetid IN SUBNET.supernetid%TYPE,
+    n_changeid in change.changeid%TYPE,
 	n_change_date in change.change_date%TYPE,
 	n_deviceid in change.deviceid%TYPE,
 	n_vlanid in change.vlanid%TYPE,
-	n_supernetid in change.supernetid%TYPE,
+	n_change_supernetid in change.supernetid%TYPE,
 	n_administratorid in change.administratorid%TYPE,
 	n_ipaddressid in change.ipaddressid%TYPE,
 	n_requeststaticID in change.requeststaticID%TYPE
@@ -500,21 +499,28 @@ create or replace procedure add_subnet_with_supernet (
 is 
 if_exist number;
 BEGIN
-select count(*) into if_exist
+    select count(*) into if_exist
 	from subnet
 	where subnet = n_Subnet 
 	and mask = n_Mask;
+    
+    
+    -- First check if the subnet exists
 	if if_exist >= 1 then
 		dbms_output.put_line('values aready exists in the subnet table ' || n_Subnet || ' ' || n_Mask);
 	else
-  INSERT INTO SUBNET (SubnetID, Subnet, Mask, Description, IPAddressesAvailable, RouterIPAddress, supernetid)
-  VALUES (n_SubnetID, n_Subnet, n_Mask , n_Description, n_IPAddressesAvailable, n_RouterIPAddress,n_supernetid);
-  add_change (n_changeid, n_change_date, n_deviceid , n_vlanid, n_subnetid, n_supernetid, n_administratorid, n_ipaddressid, n_requeststaticID);
+        -- If not, create the subnet
+  		INSERT INTO SUBNET (SubnetID, Subnet, Mask, Description, RouterIPAddress, supernetid)
+  		VALUES (n_SubnetID, n_Subnet, n_Mask , n_Description, n_RouterIPAddress,n_supernetid);
+        
+        --- and add an entry into the change table
+  		add_change (n_changeid, n_change_date, n_deviceid , n_vlanid, n_subnetid, n_change_supernetid, n_administratorid, n_ipaddressid, n_requeststaticID);
+	end if;
 END;
 
 
 begin
-	add_subnet_with_supernet (SUBNET_sequence.nextval, '192.168.5.0', '255.255.255.0', 'test subnet W/ FK', 'yes', '192.168.5.254',2,CHANGE_sequence.nextval, CURRENT_TIMESTAMP, null, null, null, 3 , null, null);
+	add_subnet_with_supernet (SUBNET_sequence.nextval, '192.168.5.0', '255.255.255.0', 'test subnet W/ FK', 'yes', 1,CHANGE_sequence.nextval, CURRENT_TIMESTAMP, null, null, null, 3 , null, null);
 end;
 
 /*
