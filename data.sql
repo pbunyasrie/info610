@@ -33,11 +33,11 @@ insert into Device (DeviceID, MACAddress, Hostname, Description, TimeFirstSeen, 
 insert into Device (DeviceID, MACAddress, Hostname, Description, TimeFirstSeen, TimeLastSeen, DeviceType) Values (DEVICE_sequence.nextval,'44:44:44:44:44:44', 'Engineer5', 'Engineer PC 5', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'PC');
 insert into Device (DeviceID, MACAddress, Hostname, Description, TimeFirstSeen, TimeLastSeen, DeviceType) Values (DEVICE_sequence.nextval,'55:55:55:55:55:55', 'Engineer6', 'Engineer PC 6', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'PC');
 
-INSERT INTO CHANGELOG_DEVICE (ChangeLogDeviceID, ChangeLog_Device_date, DeviceID) VALUES (CHANGELOG_DEVICE_sequence.nextval, CURRENT_TIMESTAMP, 1);
-INSERT INTO CHANGELOG_DEVICE (ChangeLogDeviceID, ChangeLog_Device_date, DeviceID) VALUES (CHANGELOG_DEVICE_sequence.nextval, CURRENT_TIMESTAMP, 2);
-INSERT INTO CHANGELOG_DEVICE (ChangeLogDeviceID, ChangeLog_Device_date, DeviceID) VALUES (CHANGELOG_DEVICE_sequence.nextval, CURRENT_TIMESTAMP, 3);
-INSERT INTO CHANGELOG_DEVICE (ChangeLogDeviceID, ChangeLog_Device_date, DeviceID) VALUES (CHANGELOG_DEVICE_sequence.nextval, CURRENT_TIMESTAMP, 4);
-INSERT INTO CHANGELOG_DEVICE (ChangeLogDeviceID, ChangeLog_Device_date, DeviceID) VALUES (CHANGELOG_DEVICE_sequence.nextval, CURRENT_TIMESTAMP, 5);
+INSERT INTO CHANGELOG_DEVICE (ChangeLogDeviceID, ChangeLog_Device_date, Log_DeviceID) VALUES (CHANGELOG_DEVICE_sequence.nextval, CURRENT_TIMESTAMP, 1);
+INSERT INTO CHANGELOG_DEVICE (ChangeLogDeviceID, ChangeLog_Device_date, Log_DeviceID) VALUES (CHANGELOG_DEVICE_sequence.nextval, CURRENT_TIMESTAMP, 2);
+INSERT INTO CHANGELOG_DEVICE (ChangeLogDeviceID, ChangeLog_Device_date, Log_DeviceID) VALUES (CHANGELOG_DEVICE_sequence.nextval, CURRENT_TIMESTAMP, 3);
+INSERT INTO CHANGELOG_DEVICE (ChangeLogDeviceID, ChangeLog_Device_date, Log_DeviceID) VALUES (CHANGELOG_DEVICE_sequence.nextval, CURRENT_TIMESTAMP, 4);
+INSERT INTO CHANGELOG_DEVICE (ChangeLogDeviceID, ChangeLog_Device_date, Log_DeviceID) VALUES (CHANGELOG_DEVICE_sequence.nextval, CURRENT_TIMESTAMP, 5);
 
 insert into Supernet (supernetID, Context, Description, Supernet_network_address, Supernet_subnet_mask) Values (SUPERNET_sequence.nextval, 'SecureNET', 'Securenet Supernet', '172.16.0.0', '255.255.0.0');
 insert into Supernet (supernetID, Context, Description, Supernet_network_address, Supernet_subnet_mask) Values (SUPERNET_sequence.nextval, 'HrNET', 'Hr Network Supernet', '192.168.0.0', '255.255.240.0');
