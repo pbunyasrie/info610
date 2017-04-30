@@ -146,7 +146,7 @@ CREATE TABLE IPADDRESS (
   constraint UniqueIpaddress Unique (ipaddress),
   constraint IPAddress_PK Primary Key (IPAddressID),
   constraint IPAddress_FK2 Foreign Key (DeviceID)
-    references device(DeviceID),
+    references device(DeviceID) ON DELETE CASCADE,
   constraint IPAddress_FK3 Foreign Key (SubnetID)
     references Subnet(SubnetID)
 );
@@ -203,19 +203,19 @@ CREATE TABLE Change (
   RequestStaticID integer,
   constraint Change_PK Primary Key (ChangeID),
   constraint Change_Fk1 Foreign Key (DeviceID)
-  references device(DeviceID),
+  references device(DeviceID) ON DELETE SET NULL,
   constraint Change_Fk2 Foreign Key (VlanID)
-  references VLAN(VlanID),
+  references VLAN(VlanID) ON DELETE SET NULL,
   constraint Change_Fk3 Foreign Key (SubnetID)
-  references Subnet(SubnetID),
+  references Subnet(SubnetID) ON DELETE SET NULL,
   constraint Change_Fk4 Foreign Key (SupernetID)
-  references Supernet(SupernetID),
+  references Supernet(SupernetID) ON DELETE SET NULL,
   constraint Change_Fk5 Foreign Key (AdministratorID)
-  references Network_Administrator(AdministratorID),
+  references Network_Administrator(AdministratorID) ON DELETE SET NULL,
   constraint Change_Fk6 Foreign Key (IPAddressID)
   references Ipaddress(IPAddressID) ON DELETE SET NULL,
   constraint Change_Fk7 Foreign Key (RequestStaticID)
-  references Request_Static(RequestStaticID)
+  references Request_Static(RequestStaticID) ON DELETE SET NULL
 );
 
 
