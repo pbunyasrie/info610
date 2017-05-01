@@ -537,7 +537,8 @@ create or replace procedure add_vlan (
 	n_vlanid IN VLAN.VLANID%TYPE,
 	n_name IN VLAN.Name%TYPE,
 	n_description IN VLAN.Description%TYPE,
-	n_subnetid IN VLAN.SubnetID%TYPE
+	n_subnetid IN VLAN.SubnetID%TYPE,
+	n_administratorid in change.administratorid%TYPE
 )
 is 
 if_exist number;
@@ -551,6 +552,10 @@ BEGIN
 	else
 		INSERT INTO VLAN (vlanid, name, description, subnetid)
 		VALUES (n_vlanid, n_name, n_description , n_subnetid);
+
+		--- and add an entry into the change table
+  		add_change (CHANGE_sequence.nextval, CURRENT_TIMESTAMP, null , n_vlanid, null, null, n_administratorid, null, null);
+
 		dbms_output.put_line('Created VLAN ' || n_vlanid || ' (' || n_name || ')');
 	end if;
 EXCEPTION
@@ -561,7 +566,7 @@ EXCEPTION
 END;
 
 begin
-	add_vlan(10, 'A new VLAN', 'VLAN if no other VLAN is assigned', 6);
+	add_vlan(10, 'A new VLAN', 'VLAN if no other VLAN is assigned', 6, 3);
 end;
 
 
