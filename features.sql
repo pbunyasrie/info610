@@ -362,7 +362,7 @@ BEGIN
 	else
 		INSERT INTO ipaddress (IPAddressID, IPAddress, DateFirstSeen, DateLastSeen, DeviceID, SubnetID)
 		VALUES (n_IPAddressID, n_IPAddress, n_DateFirstSeen , n_DateLastSeen, n_DeviceID, n_SubnetID);
-		dbms_output.put_line('Values added successfully to table Device ' || n_IPAddressID || ' ' || n_IPAddress|| ' ' ||  n_DateFirstSeen|| ' ' || n_DateLastSeen || ' ' || n_DeviceID || ' ' || n_SubnetID );
+		dbms_output.put_line('Values added successfully to table IP Address ' || n_IPAddressID || ' ' || n_IPAddress|| ' ' ||  n_DateFirstSeen|| ' ' || n_DateLastSeen || ' ' || n_DeviceID || ' ' || n_SubnetID );
 		add_change (c_changeid, c_change_date, c_deviceid , c_subnetid, c_vlanid, c_supernetid, c_administratorid, n_ipaddressid, c_requeststaticID);
 	end if;
 END;
