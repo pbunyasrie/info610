@@ -330,12 +330,14 @@ create or replace procedure add_ipaddress (
 	n_DateLastSeen IN ipaddress.DateLastSeen%TYPE,
 	n_DeviceID IN ipaddress.DeviceID%TYPE,
 	n_SubnetID IN ipaddress.SubnetID%TYPE,
-	n_changeid in change.changeid%TYPE,
-	n_change_date in change.change_date%TYPE,
-	n_vlanid in change.vlanid%TYPE,
-    n_supernetid in change.supernetid%TYPE,
-	n_administratorid in change.administratorid%TYPE,
-	n_requeststaticID in change.requeststaticID%TYPE
+	c_changeid in change.changeid%TYPE,
+	c_change_date in change.change_date%TYPE,
+	c_deviceid in change.deviceid%type,
+	c_subnetid in change.subnetid%type,
+	c_vlanid in change.vlanid%TYPE,
+    c_supernetid in change.supernetid%TYPE,
+	c_administratorid in change.administratorid%TYPE,
+	c_requeststaticID in change.requeststaticID%TYPE
 )
 is 
 if_exist number;
@@ -349,7 +351,7 @@ BEGIN
 		INSERT INTO ipaddress (IPAddressID, IPAddress, DateFirstSeen, DateLastSeen, DeviceID, SubnetID)
 		VALUES (n_IPAddressID, n_IPAddress, n_DateFirstSeen , n_DateLastSeen, n_DeviceID, n_SubnetID);
 		dbms_output.put_line('Values added successfully to table Device ' || n_IPAddressID || ' ' || n_IPAddress|| ' ' ||  n_DateFirstSeen|| ' ' || n_DateLastSeen || ' ' || n_DeviceID || ' ' || n_SubnetID );
-		add_change (n_changeid, n_change_date, n_deviceid , n_vlanid, n_subnetid, n_supernetid, n_administratorid, n_ipaddressid, n_requeststaticID);
+		add_change (c_changeid, c_change_date, c_deviceid , c_subnetid, c_vlanid, c_supernetid, c_administratorid, n_ipaddressid, c_requeststaticID);
 	end if;
 END;
 
@@ -378,7 +380,7 @@ END;
 
 -- verifies that add ipaddress works (successful)
 begin
-	add_ipaddress(ipaddress_sequence.nextval, '192.168.16.99', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 8, 5, CHANGE_sequence.nextval, CURRENT_TIMESTAMP, null, null, 3, null);
+	add_ipaddress(ipaddress_sequence.nextval, '192.168.16.129', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 8, 5, CHANGE_sequence.nextval, CURRENT_TIMESTAMP, null, null,null, null, 3, null);
 end;
 
 
@@ -520,7 +522,7 @@ END;
 
 
 begin
-	add_subnet_with_supernet (SUBNET_sequence.nextval, '192.168.5.0', '255.255.255.0', 'test subnet W/ FK', 'yes', 1,CHANGE_sequence.nextval, CURRENT_TIMESTAMP, null, null, null, 3 , null, null);
+	add_subnet_with_supernet (SUBNET_sequence.nextval, '192.168.5.0', '255.255.255.0', 'test subnet W/ FK', '192.168.5.254' 1,CHANGE_sequence.nextval, CURRENT_TIMESTAMP, null, null, null, 3 , null, null);
 end;
 
 /*
@@ -685,6 +687,8 @@ select count(*) into if_exist
   	end loop;
   close c1;
   end if;
+  EXCEPTION
+	when DUP_VAL_ON_INDEX then
 end;
 	
 
