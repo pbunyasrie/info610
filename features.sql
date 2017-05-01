@@ -197,15 +197,19 @@ begin
 		    from CHANGELOG_DEVICE
 		ORDER BY CHANGELOG_DEVICE.CHANGELOGDEVICEID DESC
 		  )
-		where rownum < 990);
+		where rownum <= 990);
 	end if;
 	dbms_output.put_line(ChangeLogDevice_count || ' rows in CHANGELOG_DEVICE table');
 end;
 
 /*
 	Testing:
-		INSERT INTO CHANGELOG_DEVICE (ChangeLogDeviceID, ChangeLog_Device_date, Log_DeviceID)
-		VALUES (CHANGELOG_DEVICE_sequence.nextval, CURRENT_TIMESTAMP, 1);
+	BEGIN
+		FOR x IN 1..999
+		LOOP
+		   	INSERT INTO CHANGELOG_DEVICE (ChangeLogDeviceID, ChangeLog_Device_date, Log_DeviceID) VALUES (CHANGELOG_DEVICE_sequence.nextval, CURRENT_TIMESTAMP, 1);
+		END LOOP;
+	END;
  */
 
 
