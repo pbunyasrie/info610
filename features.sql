@@ -204,6 +204,8 @@ end;
 
 /*
 	Testing:
+
+	select count(*) from changelog_device;
 	BEGIN
 		FOR x IN 1..999
 		LOOP
@@ -238,15 +240,21 @@ begin
 		    from CHANGELOG_IPADDRESS
 		ORDER BY CHANGELOG_IPADDRESS.ChangeLog_IPAddressID DESC
 		  )
-		where rownum < 990);
+		where rownum <= 990);
 	end if;
 	dbms_output.put_line(ChangeLogIPAddress_count || ' rows in CHANGELOG_IPADDRESS table');
 end;
 
 /*
 	Testing:
-		INSERT INTO CHANGELOG_IPADDRESS (ChangeLog_IPAddressID, ChangeLog_IPAddress_date, ChangeLog_User, Status, Log_IPAddressID, Log_IPAddress, Log_DateFirstSeen, Log_DateLastSeen, Log_DeviceID, Log_SubnetID)
-		VALUES (CHANGELOG_IPADDRESS_sequence.nextval, CURRENT_TIMESTAMP, 'ppan', 'Updated', 1, '192.168.1.1', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 1, 1);
+
+	select count(*) from changelog_ipaddress;
+	BEGIN
+		FOR x IN 1..1000
+		LOOP
+		   	INSERT INTO CHANGELOG_IPADDRESS (ChangeLog_IPAddressID, ChangeLog_IPAddress_date, ChangeLog_User, Status, Log_IPAddressID, Log_IPAddress, Log_DateFirstSeen, Log_DateLastSeen, Log_DeviceID, Log_SubnetID) VALUES (CHANGELOG_IPADDRESS_sequence.nextval, CURRENT_TIMESTAMP, 'ppan', 'Updated', 1, '192.168.1.1', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 1, 1);
+		END LOOP;
+	END;
  */
 
 /*
