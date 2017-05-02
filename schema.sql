@@ -198,7 +198,7 @@ CREATE TABLE Change (
   VLANID integer,
   SubnetID integer,
   SupernetID integer,
-  AdministratorID integer not null,
+  AdministratorID integer,
   IPAddressID integer,
   RequestStaticID integer,
   constraint Change_PK Primary Key (ChangeID),
