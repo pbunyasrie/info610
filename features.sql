@@ -148,11 +148,28 @@ END;
 create or replace PROCEDURE requestStaticIP(
 	n_user in Request_Static.UserID%type,
 	n_ip in Request_Static.Static_IP_Address%type,
-	n_mac in Request_Static.Static_MAC_Address%type
-) is
+	n_mac in Request_Static.Static_MAC_Address%type,
+	n_changeid in change.changeid%TYPE,
+	n_change_date in change.change_date%TYPE,
+    n_deviceid in change.deviceid%type,
+	n_vlanid in change.vlanid%TYPE,
+	n_subnetid in change.subnetid%TYPE,
+    n_supernetid in change.supernetid%TYPE,
+	n_administratorid in change.administratorid%TYPE,
+	n_ipaddressid in change.ipaddressid%TYPE
+	) 
+is
 	x Request_Static%rowtype;
 	n_username IPAM_User.username%type;
+	n_requeststaticID Request_Static.RequestStaticID%type;
+if_exist number;
 BEGIN
+select count(*) into if_exist
+	from Request_Static
+	where Static_IP_Address = n_ip ;
+	if if_exist >= 1 then
+		dbms_output.put_line('IP Request already in system ' || n_ip);
+		else
 	x.RequestStaticID := Request_Static_sequence.nextval;
 	x.Request_Static_Date := CURRENT_TIMESTAMP;
 	x.UserID := n_user;
@@ -160,16 +177,19 @@ BEGIN
 	x.Static_MAC_Address := n_mac;
 	insert into Request_Static values x;
 
+	add_change(n_changeid, n_change_date, n_deviceid , n_vlanid, n_subnetid, n_supernetid, n_administratorid, n_ipaddressid, x.RequestStaticID);
 	-- Get the username of the userID given
 	select username into n_username from IPAM_user where UserID = n_user;
 	dbms_output.put_line(n_username || ' requested the IP address: ' || n_ip || ', with a MAC address of: ' || n_mac);
+    end if;
 EXCEPTION
 	when others then
 		dbms_output.put_line('Unknown error. The procedure requires a valid user ID, an IP address, and a MAC address.');
+		
 END;
 
 begin
-	requestStaticIP(2, '172.16.1.1', '00:B0:D0:86:BB:F7');
+	requestStaticIP(2, '172.16.79.111', '00:B0:D0:86:BB:F7', CHANGE_sequence.nextval, CURRENT_TIMESTAMP, null, null, null, null, null, null);
 end;
 
 
@@ -749,4 +769,7 @@ is
 BEGIN
 	INSERT INTO change (changeid, change_date, deviceid, vlanid, subnetid, supernetid, administratorid, ipaddressid, requeststaticID)
 	VALUES (CHANGE_sequence.nextval, c_change_date, c_deviceid , c_vlanid, c_subnetid, c_supernetid, c_administratorid, c_ipaddressid, c_requeststaticID);
+exception
+	WHEN OTHERS THEN
+		dbms_output.put_line('add_change Procedure requires changeid, change date, deviceid, vlanid, subnetid, supernetid, administratorid, requeststaticid');
 end;
