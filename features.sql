@@ -659,17 +659,19 @@ end;
 /*
 	====================
 	FEATURE #14
-	See who requested an IP address static assignment, what the static address is, and what admin created it
+	See what IPs have been requested by the user.  
 
 	- Implements SELECT
 
 	====================
 */
 
+
 create or replace procedure find_static_ip_requestor(
 	r_userid in request_static.userID%TYPE
 	)
     is
+    --joins tables to look for what user requested the Ipaddress and MAC address, also imports administrators name who was assigned the task
 cursor c1 is select ipam_user.username, Network_Administrator.AdministratorName, ipaddress.ipaddress, device.macaddress
 from request_static, ipaddress, device, Network_Administrator, ipam_user, change
 where request_static.userID = IPAM_user.userID
@@ -682,15 +684,16 @@ n_username ipam_user.username%type;
 n_administratorname Network_Administrator.AdministratorName%type;
 n_ipaddress ipaddress.ipaddress%type;
 n_macaddress device.macaddress%type;
-if_exist number;
+if_user_exist number;
+if_static_ip_request_exist number;
 BEGIN
-select count(*) into if_exist
+--looking to see if username exists
+select count(*) into if_user_exist
 	from request_static
 	where request_static.userID = r_userid;
-	if if_exist = 0 then
-		dbms_output.put_line('no such userid exists' || r_userid);
+	if if_user_exist = 0 then
+		dbms_output.put_line('No Requests Exist for User ' || r_userid);
 	else
-
   open c1;
   	loop 
   		fetch c1 into n_username, n_administratorname, n_ipaddress, n_macaddress;
@@ -699,16 +702,25 @@ select count(*) into if_exist
   	end loop;
   close c1;
   end if;
-  EXCEPTION
-	when DUP_VAL_ON_INDEX then
 end;
+
 	
 
 
 begin 
 find_static_ip_requestor(1);
 end;
+--Username Requesting IP Address is: ppan Administrator Who Added Static entry is: jbutler Ip address added is: 192.168.1.1 Mac Address of Device is: aa:aa:aa:aa:aa:aa
 
+begin 
+find_static_ip_requestor(2);
+end;
+--No Requests Exist for User 2
+
+begin 
+find_static_ip_requestor(9);
+end;
+--No Requests Exist for User 9
 
 
 /*
