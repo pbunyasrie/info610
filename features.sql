@@ -773,3 +773,8 @@ exception
 	WHEN OTHERS THEN
 		dbms_output.put_line('add_change Procedure requires changeid, change date, deviceid, vlanid, subnetid, supernetid, administratorid, requeststaticid');
 end;
+
+-- EXAMPLE
+BEGIN
+add_change (CHANGE_sequence.nextval, CURRENT_TIMESTAMP, null, null, null, 1, null, null, null);
+END;
