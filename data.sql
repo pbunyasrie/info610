@@ -15,12 +15,10 @@ insert into IPAM_User (UserID, UserName, Password, DeptID) Values (IPAM_User_seq
 insert into IPAM_User (UserID, UserName, Password, DeptID) Values (IPAM_User_sequence.nextval, 'pparker', 'Not Secure 2',1);
 insert into IPAM_User (UserID, UserName, Password, DeptID) Values (IPAM_User_sequence.nextval, 'bgrimm', 'Not Secure 4',4);
 insert into IPAM_User (UserID, UserName, Password, DeptID) Values (IPAM_User_sequence.nextval, 'mmagician', 'Not Secure 5',2);
+insert into IPAM_User (UserID, UserName, Password, DeptID) Values (IPAM_User_sequence.nextval, 'NoRequestExample', 'Not Secure 6',2);
+
 
 insert into Request_Static (RequestStaticID, Request_Static_Date, UserID, Static_IP_Address, Static_MAC_Address) Values (Request_Static_sequence.nextval, to_date('2017/01/01','yyyy/mm/dd'),1,'192.168.1.1','aa:aa:aa:aa:aa:aa');
-insert into Request_Static (RequestStaticID, Request_Static_Date, UserID, Static_IP_Address, Static_MAC_Address) Values (Request_Static_sequence.nextval, to_date('2017/02/01','yyyy/mm/dd'),2,'192.168.1.2','bb:bb:bb:bb:bb:bb');
-insert into Request_Static (RequestStaticID, Request_Static_Date, UserID, Static_IP_Address, Static_MAC_Address) Values (Request_Static_sequence.nextval, to_date('2017/03/01','yyyy/mm/dd'),3,'192.168.1.3','cc:cc:cc:cc:cc:cc');
-insert into Request_Static (RequestStaticID, Request_Static_Date, UserID, Static_IP_Address, Static_MAC_Address) Values (Request_Static_sequence.nextval, to_date('2017/04/01','yyyy/mm/dd'),4,'192.168.1.4','dd:dd:dd:dd:dd:dd');
-insert into Request_Static (RequestStaticID, Request_Static_Date, UserID, Static_IP_Address, Static_MAC_Address) Values (Request_Static_sequence.nextval, to_date('2017/05/01','yyyy/mm/dd'),5,'192.168.1.5','ee:ee:ee:ee:ee:ee');
 
 insert into Device (DeviceID, MACAddress, Hostname, Description, TimeFirstSeen, TimeLastSeen, DeviceType) Values (DEVICE_sequence.nextval,'aa:aa:aa:aa:aa:aa', 'comp1', 'HR PC 1', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'PC'); 
 insert into Device (DeviceID, MACAddress, Hostname, Description, TimeFirstSeen, TimeLastSeen, DeviceType) Values (DEVICE_sequence.nextval,'bb:bb:bb:bb:bb:bb', 'comp2', 'HR PC 1', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'PC'); 
@@ -84,10 +82,6 @@ insert into AUTODISCOVERY (AUTODISCOVERY_ID, DiscoveryDate, DiscoveryDescription
 
 insert into change (changeID, Change_Date, DeviceID, VlanID, SubnetID, supernetID, AdministratorID, IPAddressID, RequestStaticID) values (CHANGE_sequence.nextval, CURRENT_TIMESTAMP, 1,null,null,null,1,null,null);
 insert into change (changeID, Change_Date, DeviceID, VlanID, SubnetID, supernetID, AdministratorID, IPAddressID, RequestStaticID) values (CHANGE_sequence.nextval, CURRENT_TIMESTAMP, null,1111,1,1,2,1,1);
-insert into change (changeID, Change_Date, DeviceID, VlanID, SubnetID, supernetID, AdministratorID, IPAddressID, RequestStaticID) values (CHANGE_sequence.nextval, CURRENT_TIMESTAMP, null,null,null,null,4,null,2);
-insert into change (changeID, Change_Date, DeviceID, VlanID, SubnetID, supernetID, AdministratorID, IPAddressID, RequestStaticID) values (CHANGE_sequence.nextval, CURRENT_TIMESTAMP, null,null,null,null,5,null,3);
-insert into change (changeID, Change_Date, DeviceID, VlanID, SubnetID, supernetID, AdministratorID, IPAddressID, RequestStaticID) values (CHANGE_sequence.nextval, CURRENT_TIMESTAMP, null,null,null,null,1,null,4);
-insert into change (changeID, Change_Date, DeviceID, VlanID, SubnetID, supernetID, AdministratorID, IPAddressID, RequestStaticID) values (CHANGE_sequence.nextval, CURRENT_TIMESTAMP, null,null,null,null,2,null,5);
 insert into change (changeID, Change_Date, DeviceID, VlanID, SubnetID, supernetID, AdministratorID, IPAddressID, RequestStaticID) values (CHANGE_sequence.nextval, CURRENT_TIMESTAMP, 2 ,1112,2,2,3,2,null);
 insert into change (changeID, Change_Date, DeviceID, VlanID, SubnetID, supernetID, AdministratorID, IPAddressID, RequestStaticID) values (CHANGE_sequence.nextval, CURRENT_TIMESTAMP, null,null,3,3,4,null,null);
 insert into change (changeID, Change_Date, DeviceID, VlanID, SubnetID, supernetID, AdministratorID, IPAddressID, RequestStaticID) values (CHANGE_sequence.nextval, (TO_TIMESTAMP('05-MAR-17 10.31.19', 'DD-MON-YY HH.MI.SS')), 3,1113,null,null,5,3,null);
