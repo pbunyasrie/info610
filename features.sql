@@ -177,7 +177,7 @@ select count(*) into if_exist
 	x.Static_MAC_Address := n_mac;
 	insert into Request_Static values x;
 
-	add_change(n_changeid, n_change_date, n_deviceid , n_vlanid, n_subnetid, n_supernetid, n_administratorid, n_ipaddressid, x.RequestStaticID);
+	add_change(n_changeid, n_change_date, n_deviceid, n_vlanid, n_subnetid, n_supernetid, n_administratorid, n_ipaddressid, x.RequestStaticID);
 	-- Get the username of the userID given
 	select username into n_username from IPAM_user where UserID = n_user;
 	dbms_output.put_line(n_username || ' requested the IP address: ' || n_ip || ', with a MAC address of: ' || n_mac);
