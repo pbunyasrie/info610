@@ -554,7 +554,7 @@ END;
 
 
 begin
-	add_subnet_with_supernet (SUBNET_sequence.nextval, '192.168.5.0', '255.255.255.0', 'test subnet W/ FK', '192.168.5.254' 1,CHANGE_sequence.nextval, CURRENT_TIMESTAMP, null, null, null, 3 , null, null);
+	add_subnet_with_supernet (SUBNET_sequence.nextval, '192.168.5.0', '255.255.255.0', 'test subnet W/ FK', '192.168.5.254', 1, CHANGE_sequence.nextval, CURRENT_TIMESTAMP, null, null, null, 3 , null, null);
 end;
 
 /*
