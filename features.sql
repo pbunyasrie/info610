@@ -119,6 +119,8 @@ BEGIN
 	end if;
 end;
 
+
+/*
 --Example: does not exist
 BEGIN
 check_autodiscovery_ipaddress('192.168.16.66');
@@ -133,6 +135,7 @@ END;
 BEGIN
 check_autodiscovery_ipaddress('192.168.16.2');
 END;
+*/
 
 
 /*
@@ -188,9 +191,12 @@ EXCEPTION
 		
 END;
 
+
+/*
 begin
 	requestStaticIP(2, '172.16.79.111', '00:B0:D0:86:BB:F7', CHANGE_sequence.nextval, CURRENT_TIMESTAMP, null, null, null, null, null, null);
 end;
+*/
 
 
 /*
@@ -341,10 +347,12 @@ BEGIN
   end if;
 END;
 
+/*
 -- verifies that add device works (successful)
 begin
 	add_device(device_sequence.nextval, '66:66:66:66:66:66', 'testdevice1', 'test device 1', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP,'test pc', CHANGE_sequence.nextval, CURRENT_TIMESTAMP, null, null, null, 3, null, null);
 end;
+*/
 
 /*
 	====================
@@ -410,10 +418,13 @@ BEGIN
   end if;
 END;
 
+
+/*
 -- verifies that add ipaddress works (successful)
 begin
 	add_ipaddress(ipaddress_sequence.nextval, '192.168.16.129', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 8, 5, CHANGE_sequence.nextval, CURRENT_TIMESTAMP, null, null,null, null, 3, null);
 end;
+*/
 
 
 /*
@@ -459,6 +470,8 @@ BEGIN
 	end if;
 END;
 
+
+/*
 begin
 	add_supernet(SUPERNET_sequence.nextval, 'testnet', 'test supernet', '192.168.96.0', '255.255.240.0',CHANGE_sequence.nextval, CURRENT_TIMESTAMP, null, null, null, 1, null, null);
 end;
@@ -466,6 +479,7 @@ end;
 -- Verify that the supernet was added, and that the change was recorded
 select * from supernet where supernetid = 6;
 select * from change where supernetid = 6;
+*/
 
 
 /*
@@ -510,9 +524,11 @@ select count(*) into if_exist
 
 END;
 
+/*
 begin
 	add_subnet_with_no_supernet (SUBNET_sequence.nextval, '10.66.0.0', '255.255.255.0', 'test subnet no FK', '10.66.0.254',CHANGE_sequence.nextval, CURRENT_TIMESTAMP, null, null, null, 2 , null, null);
 end;
+*/
 
 create or replace procedure add_subnet_with_supernet (
     n_SubnetID IN SUBNET.SubnetID%TYPE,
@@ -553,9 +569,11 @@ BEGIN
 END;
 
 
+/*
 begin
 	add_subnet_with_supernet (SUBNET_sequence.nextval, '192.168.5.0', '255.255.255.0', 'test subnet W/ FK', '192.168.5.254', 1, CHANGE_sequence.nextval, CURRENT_TIMESTAMP, null, null, null, 3 , null, null);
 end;
+*/
 
 /*
 	====================
@@ -599,9 +617,12 @@ EXCEPTION
 		dbms_output.put_line('Unknown error. The procedure requires a VLAN ID, a name, a description, and a SubnetID.');
 END;
 
+
+/*
 begin
 	add_vlan(10, 'A new VLAN', 'VLAN if no other VLAN is assigned', 6, 3);
 end;
+*/
 
 
 /*
@@ -630,6 +651,8 @@ BEGIN
 	end if;
 END;
 
+
+/*
 begin
 	DeleteIpAddress('192.168.1.3');
 end;
@@ -637,6 +660,7 @@ end;
 begin
 	DeleteIpAddress('192.168.1.9');
 end;
+*/
 
 /*
 	====================
@@ -726,7 +750,7 @@ end;
 
 	
 
-
+/*
 begin 
 find_static_ip_requestor(1);
 end;
@@ -741,7 +765,7 @@ begin
 find_static_ip_requestor(9);
 end;
 --No Requests Exist for User 9
-
+*/
 
 /*
 	====================
@@ -774,7 +798,9 @@ exception
 		dbms_output.put_line('add_change Procedure requires changeid, change date, deviceid, vlanid, subnetid, supernetid, administratorid, requeststaticid');
 end;
 
+/*
 -- EXAMPLE
 BEGIN
 add_change (CHANGE_sequence.nextval, CURRENT_TIMESTAMP, null, null, null, 1, null, null, null);
 END;
+*/
